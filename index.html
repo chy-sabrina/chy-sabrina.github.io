@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <header class="navbar">
+
+    <div class="nav-name">
+      <p>Sabrina Cheung</p>
+    </div>
+
+    <nav>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+  </header>
+
+  <main class="container">
+
+    <section id="about" class="section">
+      
+      <h1>About Me</h1>
+
+      <p>
+        Hi, I am Sarbina! I am a Computer Science student at the University of Hong Kong.
+      </p>
+
+      <p>
+        I enjoy building things to understand how they work, whether that's a phishing detection tool, a cryptography puzzle game, or this website. 
+        Most of my learning happens through building, figuring things out along the way, fixing bugs, and picking up new tools as projects evolve.
+      </p>
+
+    </section>
+
+    <section id="education" class="section">
+
+      <h1>Education</h1>
+
+      <div class="item">
+
+        <h2>BEng in Computer Science</h2>
+
+        <h3>The University of Hong Kong</h3>
+
+        <p class="meta">
+          Sep 2025 – Jun 2029
+        </p>
+
+        <p>
+          Intended Focuses: Cybersecurity, Systems & Networking
+        </p>
+
+        <p>
+          Minor: Information Systems & Analytics
+        </p>
+
+        <p>
+          Selected for the Delta+ Tech Immersion Fellowship, a selective programme for high-performing Computer Science and Data Science students.
+        </p>
+
+      </div>
+
+    </section>
+
+    <section id="skills" class="section">
+
+      <h1>Skills</h1>
+
+      <p>Programming Languages: C++, Python, SQL</p>
+
+      <p>Web Development: HTML, CSS</p>
+
+      <p>Tools: Git, GitHub, Linux, Make</p>
+
+    </section>
+
+    <section id="experience" class="section">
+
+      <h1>Experience</h1>
+
+      <div class="item">
+
+        <h2>Information Security Advisory Intern</h2>
+
+        <h3>AIA Hong Kong and Macau</h3>
+
+        <p class="meta">
+          Jun 2026 – Aug 2026
+        </p>
+
+        <p>
+          Incoming intern.
+        </p>
+
+      </div>
+
+    </section>
+
+    <section id="projects" class="section">
+
+      <h1>Projects</h1>
+
+      <div class="item">
+
+        <h2>Cipher Maze</h2>
+
+        <p class="meta">
+          Mar 2026 – May 2026
+        </p>
+
+        <p class="remark">
+          COMP2113 Course Project; Score: 19.9/20
+        </p>
+
+        <p>
+          A text-based cryptography puzzle game where players explore hidden rooms and progress by solving cipher-based challenges.
+        </p>
+
+        <p>
+          Features Caesar, numeric, and substitution ciphers combined with fog-of-war exploration and combat mechanics.
+        </p>
+
+        <p>
+          Designed the game's theme, implemented substitution cipher gameplay, developed tutorial and hint systems, and led testing and debugging.
+        </p>
+
+      </div>
+
+      <div class="item">
+
+        <h2>PhishDNA</h2>
+
+        <p class="meta">
+          Mar 2026 – Apr 2026
+        </p>
+
+        <p class="remark">
+          CCAI9028 Course Project; AI-Assisted
+        </p>
+
+        <p>
+          A phishing URL detection tool that evaluates URLs using lexical feature analysis.
+        </p>
+
+        <p>
+          Focuses on patterns extractable directly from the URL without requiring domain-age or JavaScript-based features.
+        </p>
+
+        <p>
+          Designed risk assessment logic, refined scoring rules through extensive testing, and integrated the model into a browser extension.
+        </p>
+
+      </div>
+
+      <div class="item">
+
+        <h2>CraftscapeHK</h2>
+
+        <p class="meta">
+          Sep 2025 – Nov 2025
+        </p>
+
+        <p>
+          An AI + AR e-commerce platform to preserve and protect traditional Hong Kong crafts.
+        </p>
+
+        <p>
+          Contributed to interface refinement, user acceptance testing (UAT), and usability improvements through iterative feedback.
+        </p>
+
+        <a href="https://github.com/gracetyy/CraftscapeHK" class="github-btn" target="_blank" rel="noopener noreferrer" aria-label="View CraftscapeHK on GitHub">
+          <svg class="github-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          View on GitHub
+        </a>
+
+      </div>
+
+    </section>
+
+    <section id="contact" class="section">
+
+      <h1>Contact</h1>
+
+      <p>Email: <a class="link" href="mailto:sabrichy@connect.hku.hk">sabrichy@connect.hku.hk</a></p>
+
+      <p>LinkedIn: <a class="link" href="https://www.linkedin.com/in/sabrinachy/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sabrinachy</a></p>
+
+      <p>GitHub: <a class="link" href="https://github.com/chy-sabrina" target="_blank" rel="noopener noreferrer">github.com/chy-sabrina</a></p>
+
+    </section>
+
+    <footer class="footer">
+      Last Updated: June 2026
+    </footer>
+
+  </main>
+
+</body>
+</html>
