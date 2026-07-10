@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishDNA | Notes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css?v=20260710-html">
+  <script src="../script.js?v=20260710-html" defer></script>
+</head>
+
+<body>
+
+  <header class="navbar">
+
+    <div class="nav-name">
+      <p>Sabrina Cheung</p>
+    </div>
+
+    <nav>
+      <a href="../index.html?section=about">About</a>
+      <a href="../index.html?section=education">Education</a>
+      <a href="../index.html?section=skills">Skills</a>
+      <a href="../index.html?section=experience">Experience</a>
+      <a href="../index.html?section=projects">Projects</a>
+      <a href="../index.html?section=contact">Contact</a>
+      <a href="../notes.html" aria-current="page">Notes</a>
+    </nav>
+
+  </header>
+
+  <main class="container">
+
+    <article class="section note-page">
+      <a class="back-link" href="../notes.html">Back to Notes</a>
+
+      <h2>Why I want to build PhishDNA?</h2>
+
+      <p>
+        Remember in around Feb 2026, I saw a post on Threads that said "Wow, this looks so similar to the real HSBC website" with a screen capture of phishing site that tries to minimic HSBC's website.
+      </p>
+
+      <p>
+        Comments below told them not to enter any sensitive information. Then, they said "Of course I won't! I stay safe as long as I don't enter any information".
+      </p>
+
+      <p>
+        By then, I realized that many people who are not familiar with tech/ cybersecurity have this misconception.
+      </p>
+
+      <p>
+        In fact, there are some aggressive attack that does not require victims to enter any information. For example, XSS and Drive-by-Download.
+      </p>
+
+      <p>
+        And this is the reason why I want to build PhishDNA.
+      </p>
+
+      <p>At first, the planned system flow is:</p>
+
+      <pre><code>Read the active tab's URL
+      &darr;
+Send the URL to backend
+      &darr;
+Extract the required features for risk score prediction
+      &darr;
+Pre-trained model (engine.pkl) will predict the risk score
+      &darr;
+Apply override rules (whitelisting &amp; penalty rules)
+      &darr;
+Calculate final risk score
+
+If final risk score &gt; 75 (danger)
+      &darr;
+Block the HTTP request and include a pop-up window to ask whether the user wants to continue visiting that site</code></pre>
+
+      <p>However, due to time limitation and technical difficulty, the final system flow is:</p>
+
+      <pre><code>Read the active tab's URL
+      &darr;
+Send the URL to backend
+      &darr;
+Extract the required features for risk score prediction
+      &darr;
+Pre-trained model (engine.pkl) will predict the risk score
+      &darr;
+Apply override rules (whitelisting &amp; penalty rules)
+      &darr;
+Calculate final risk score
+      &darr;
+Display the final risk score + explaination to user through the browser extension</code></pre>
+
+      <h2>Struggling (?) process</h2>
+
+      <ul>
+        <li>Week 1: collecting initial datasets + model training</li>
+        <li>
+          Week 2: testing, testing and testing
+          <ul>
+            Found out huge issue:
+            <li>Accuracy, recall, precision all over 90% in test dataset</li>
+            <li>But when I inputted real URLs (copy from my browsing history), the model flagged almost every URL as danger</li>
+          </ul>
+        </li>
+        <li>Week 3: refining scoring rules &amp; logic</li>
+      </ul>
+
+      <p class="note-indent">
+        Keep modifying the rules (e.g., replace "URL length score" into "effective length score", set a maximum feature importance score to avoid one feature dominiating the whole scoring logic) WITHOUT checking the training dataset :/
+      </p>
+
+      <ul>
+        <li>Week 4: report writing (background + movitation + research of existing solutions)</li>
+        <li>
+          Week 5: expanding dataset
+          <ul>
+            <li>Finally checked the exisiting dataset and found out that:</li>
+            <li>dataset for legitimate URLs is all short, clean FQDNs (e.g., www[.]apple[.]com)</li>
+            <li>dataset for phishing URLs is all long, non-human-readable URLs (e.g., hxxps[:]//www[.]n49ajinipr4[.]xyz/4po9hnpinpanp)</li>
+          </ul>
+        </li>
+      </ul>
+
+      <p class="note-indent">
+        After finding out such difference, I immediately search for other globally recognized datasets.
+      </p>
+
+      <ul>
+        <li>Week 6 &amp; 7: refining scoring rules &amp; logic</li>
+      </ul>
+
+      <p class="note-indent">
+        Added the most important feature (in my opinion): brand deception tactics
+      </p>
+
+      <blockquote>
+        <p>
+          We have seen lots of phishing URLs in phishing SMS, such as hxxps[:]//www[.]whatsd-app[.]com/verify-account
+        </p>
+        <p>
+          This URL obviously is trying to disguise as the WhatsApp website.
+        </p>
+        <p>
+          However, machines cannot distinguish whether the URL is trying to pose as an official website or not.
+        </p>
+      </blockquote>
+
+      <ul>
+        <li>Week 8: browser extension development &amp; refinement</li>
+      </ul>
+
+      <p class="note-indent">
+        With the help of Codex, I connected the trained model to a browser extension. However, at first, it was found that the risk score predicted in the browser extension and that when I inputted the URL into the terminal are different. Then, I found out that hard override rules (e.g., if TLD is ".gov.hk", then set risk score to 0) were not implemented in the browser extension.
+      </p>
+
+      <h2>Takeaways</h2>
+
+      <ul>
+        <li>There are many ways to identify a phishing URL</li>
+        <li>Phishing URLs are highly related to social engineering attack (especially phishing email and phishing SMS)</li>
+        <li>Training a model to anaylze phishing URLs is MUCH harder than I thought</li>
+        <li>The impact of dataset bias is extremely significant</li>
+      </ul>
+    </article>
+
+  </main>
+
+</body>
+</html>

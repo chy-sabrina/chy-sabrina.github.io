@@ -4,21 +4,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260710-html">
+  <script src="script.js?v=20260710-html" defer></script>
 </head>
 
 <body>
 
-    <main class="container">
-        <!-- todo -->
-    </main>
+  <header class="navbar">
+
+    <div class="nav-name">
+      <p>Sabrina Cheung</p>
+    </div>
+
+    <nav>
+      <a href="index.html?section=about">About</a>
+      <a href="index.html?section=education">Education</a>
+      <a href="index.html?section=skills">Skills</a>
+      <a href="index.html?section=experience">Experience</a>
+      <a href="index.html?section=projects">Projects</a>
+      <a href="index.html?section=contact">Contact</a>
+      <a href="notes.html" aria-current="page">Notes</a>
+    </nav>
+
+  </header>
+
+  <main class="container">
+
+    <section id="notes-index" class="section">
+
+      <h1>Notes</h1>
+
+      <p>
+        Short writeups about projects, security topics, and things I learned while building.
+      </p>
+
+      <div class="notes-list">
+
+        <a class="item note-card" href="notes/phishdna.html">
+          <h2>PhishDNA</h2>
+          <p class="meta">July 2026</p>
+          <p>
+            Some reflection on PhishDNA
+        </a>
+
+        <a class="item note-card" href="notes/ciphermaze.html">
+          <h2>CipherMaze</h2>
+          <p class="meta">July 2026</p>
+          <p>
+            CipherMaze journey
+          </p>
+        </a>
+
+      </div>
+
+    </section>
+
+    <footer class="footer">
+      Last Updated: July 2026
+    </footer>
+
+  </main>
 
 </body>
 </html>
