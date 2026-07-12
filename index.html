@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <!-- Access Token: bypass_allow_2026 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>chy-sabrina.github.io</title>
@@ -30,10 +31,10 @@
       <a href="index.html?section=experience">Experience</a>
       <a href="index.html?section=projects">Projects</a>
       <a href="index.html?section=contact">Contact</a>
-      <a href="notes.html">Notes</a>
+      <a href="#" class="classified-link" aria-label="Open confidential terminal">[CONFIDENTIAL]</a>
     </nav>
 
-    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
+    <button class="theme-toggle" type="button" aria-label="Switch color scheme" aria-pressed="false" title="Switch color scheme">◐</button>
 
   </header>
 
@@ -225,6 +226,31 @@
     </footer>
 
   </main>
+
+  <div class="term-modal-overlay hidden" id="classified-terminal" role="dialog" aria-modal="true" aria-labelledby="classified-terminal-title" aria-hidden="true">
+    <div class="term-box" role="document">
+      <div class="term-header">
+        <div class="term-dots" aria-hidden="true">
+          <span class="term-dot term-dot-red"></span>
+          <span class="term-dot term-dot-yellow"></span>
+          <span class="term-dot term-dot-green"></span>
+        </div>
+        <p class="term-title" id="classified-terminal-title">/mnt/secure_storage</p>
+      </div>
+
+      <div class="term-body">
+        <p class="term-line">[SYSTEM ERROR] ACCESS DENIED. VALIDATION TOKEN REQUIRED.</p>
+
+        <label class="term-prompt" for="classified-token">
+          <span>Enter Access Token:</span>
+          <input id="classified-token" class="term-input" type="password" autocomplete="off" spellcheck="false" inputmode="text" />
+        </label>
+
+        <p class="term-hint">[!] HINT: Access token is hidden in this page. The code never lies.</p>
+        <p class="term-status" id="classified-status" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
