@@ -115,6 +115,9 @@ function setupClassifiedEasterEgg() {
     return;
   }
 
+  overlay.classList.add('hidden');
+  overlay.style.display = 'none';
+
   overlay.addEventListener('click', event => {
     if (event.target === overlay) {
       closeClassifiedTerminal();
@@ -173,6 +176,7 @@ function openClassifiedTerminal() {
   }
 
   overlay.classList.remove('hidden');
+  overlay.style.display = 'flex';
   overlay.setAttribute('aria-hidden', 'false');
   status.textContent = '';
   status.classList.remove('is-success', 'is-error');
@@ -192,6 +196,7 @@ function closeClassifiedTerminal() {
   }
 
   overlay.classList.add('hidden');
+  overlay.style.display = 'none';
   overlay.setAttribute('aria-hidden', 'true');
 
   if (input) {
