@@ -131,7 +131,7 @@ function setupClassifiedEasterEgg() {
 
     event.preventDefault();
 
-    if (input.value === 'bypass_allow_2026') {
+    if (input.value === 'im_sabrina') {
       status.textContent = '[+] Access Granted. Redirecting...';
       status.classList.remove('is-error');
       status.classList.add('is-success');
