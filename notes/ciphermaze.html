@@ -45,7 +45,7 @@
       <h2>Background</h2>
 
       <p>
-        <a href="index.html#CipherMaze">Cipher Maze</a> is the course project for COMP2113.
+        <a href="../index.html#CipherMaze">Cipher Maze</a> is the course project for COMP2113. We are asked to develop a text-based mini-game.
       </p>
 
       <h2>Why this theme?</h2>
@@ -55,7 +55,8 @@
       </p>
 
       <p>
-        In that lecture, the lecturer introduced Caesar cipher and substitution cipher. He also demonstrated once how to make use of frequency analysis to crack substitution cipher.
+        In that lecture, the lecturer introduced Caesar cipher and substitution cipher. 
+        He also demonstrated once how to make use of frequency analysis to crack substitution cipher.
       </p>
 
       <figure class="note-figure">
@@ -68,8 +69,27 @@
       </p>
 
        <p>
-        Therefore, I proposed the theme of cryptography game to my teammates. At the same time, one of my teammates proposed to do a Fog of War game. So, we combined the two ideas and developed this game.
+        Therefore, I proposed the theme of cryptography game to my teammates. At the same time, one of my teammates proposed to do a Fog of War game. 
+         So, we combined the two ideas and developed this game.
       </p>
+
+      <h2>Interesting Things when Working on the Project</h2>
+      
+      <p>
+        Originally, we did not plan to implement a hint system. 
+        However, when I was testing the game, I totally could not solve the numeric cipher and substitution cipher without the help of AI. 
+        And even with the help of AI, the success rate was also lower than 50%. 
+        Therefore, I started to develop the hint system for the medium and hard mode (so that I can solve it without using AI).
+        <!--todo: add hint system readme pic-->
+      </p>
+
+      <p>
+        Also, at first, the HP deducted for each enemy encountered was 25 (total HP: 100).
+        We did not realize anything wrong until the testing stage. For the 3x3 map in easy mode, the shortest path to reach the end only takes 3 rooms. 
+        It means that even if the player gave up solving the puzzles and just walk to the end, the final HP will still be positive. 
+        We then discussed about this issue and redesigned the HP deduction logic, forcing players to solve at least one puzzle in order to reach the end. 
+      </p>
+      
     </article>
     
   </main>
