@@ -53,15 +53,15 @@
       </p>
 
       <p>
-        By then, I realized that many people who are not familiar with tech/ cybersecurity have this misconception.
+        I reposted that post to my personal account and shared some of my thoughts there. And surprisingly, my friends replied to my post saying that they had the same understanding as OP. By then, I realized that many people who are not familiar with tech/ cybersecurity have this misconception.
       </p>
 
       <p>
-        In fact, there are some aggressive attack that does not require victims to enter any information. For example, XSS and Drive-by-Download.
+        In fact, there are some aggressive attack that does not require victims to enter any information. For example, XSS and Drive-by-Download. Simplily clicking the link can already expose victim's information or even infect their devices.
       </p>
 
       <p>
-        And this is the reason why I want to build PhishDNA.
+        And this is the reason why I want to build PhishDNA. Since fetching the content of malicious sites may be dangerous (e.g., downloading malware to the server hosting PhishDNA), the goal of the project is to predict the risk score only by analyzing the URL's structure.
       </p>
 
       <p>At first, the planned system flow is:</p>
@@ -158,7 +158,7 @@ Display the final risk score + explaination to user through the browser extensio
       </ul>
 
       <p class="note-indent">
-        With the help of Codex, I connected the trained model to a browser extension. However, at first, it was found that the risk score predicted in the browser extension and that when I inputted the URL into the terminal are different. Then, I found out that hard override rules (e.g., if TLD is ".gov.hk", then set risk score to 0) were not implemented in the browser extension.
+        The trained model is connected to the browser extension. However, at first, it was found that the risk score predicted in the browser extension and that when I inputted the URL into the terminal are different. Then, I found out that hard override rules (e.g., if TLD is ".gov.hk", then set risk score to 0) were not implemented in the browser extension.
       </p>
 
       <h2>Takeaways</h2>
@@ -166,7 +166,7 @@ Display the final risk score + explaination to user through the browser extensio
       <ul>
         <li>There are many ways to identify a phishing URL</li>
         <li>Phishing URLs are highly related to social engineering attack (especially phishing email and phishing SMS)</li>
-        <li>Training a model to anaylze phishing URLs is MUCH harder than I thought</li>
+        <li>Training a ML model is MUCH harder than I thought</li>
         <li>The impact of dataset bias is extremely significant</li>
       </ul>
     </article>
