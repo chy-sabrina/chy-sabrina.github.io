@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Website | Notes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css?v=20260710-theme">
+  <script src="../script.js?v=20260710-theme" defer></script>
+</head>
+
+<body>
+
+  <header class="navbar">
+
+    <div class="nav-name">
+      <p>Sabrina Cheung</p>
+    </div>
+
+    <nav>
+      <a href="../index.html?section=about">About</a>
+      <a href="../index.html?section=education">Education</a>
+      <a href="../index.html?section=skills">Skills</a>
+      <a href="../index.html?section=experience">Experience</a>
+      <a href="../index.html?section=projects">Projects</a>
+      <a href="../index.html?section=contact">Contact</a>
+      <a href="../notes.html" aria-current="page">Notes</a>
+    </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
+
+  </header>
+
+  <main class="container">
+
+    <article class="section note-page">
+      <a class="back-link" href="../notes.html">Back to Notes</a>
+
+      <h2>Why I want to build this website?</h2>
+
+      <p>
+        Actually, the intention was really simple - I wanted to explain more details of my projects (PhishDNA and Cipher Maze), but there was not enough space on my CV. 
+        And at the same time, I do not want to share too much on LinkedIn.
+      </p>
+
+      <p>
+        So, the original design only has one page, the one you can see when visiting <a href="../index.html">chy-sabrina.github.io</a>. 
+        This <a class="back-link" href="../notes.html">Notes</a> page is not what I planned.
+      </p>
+
+      <h2>Why create the "Notes" page?</h2>
+
+      <p>
+        When I was writing the part for my projects, I found out that I have lots of interesting stories/ journeys that I wanted to share.
+        <!-- todo: also want a place to write down some random stuffs-->
+      </p>
+
+      <p>
+        <!-- todo: why make this easter egg? how do i come up with this?
+        `1. these notes are quite personally, so I don't want them to be accessed directly; but I still want to share them (if not then I won't write them out lol)
+         2. during my internship, I saw a pen test report (confidential so cannot explain much) -> but the developer just did not do server-side authorization -> when change the user_id to admin's user_id in the request -> low privilage account can take admin actions
+            so this is sth like changing the code(?) in my understanding 
+            so I first come up with that making a user_id: when you visit my website -> it is "guest"; if change to "admin" -> can access this notes page
+            but without any hint -> normally no one will try to change the code
+            so I have to hide some hint inside the HTML code -> then why don't I just hide the access code in it?
+            and this is how I come up with this easter egg feature
+        --->
+      </p>
+      
+    </article>
+    
+  </main>
+
+</body>
+</html>
