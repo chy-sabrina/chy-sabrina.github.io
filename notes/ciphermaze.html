@@ -45,18 +45,17 @@
       <h2>Background</h2>
 
       <p>
-        <a href="../index.html#CipherMaze">Cipher Maze</a> is the course project for COMP2113. We are asked to develop a text-based mini-game.
+        <a href="../index.html#CipherMaze">Cipher Maze</a> is the course project for COMP2113. Our team was asked to design and build a text-based mini-game.
       </p>
 
       <h2>Why this theme?</h2>
 
       <p>
-        By the time our team was deciding the theme of our game, COMP1110 had just gone through the topic "Cybersecurity &amp; Cryptography".
+        By the time our team was deciding on the theme, COMP1110 had just covered the topic of cybersecurity and cryptography.
       </p>
 
       <p>
-        In that lecture, the lecturer introduced Caesar cipher and substitution cipher. 
-        He also demonstrated once how to make use of frequency analysis to crack substitution cipher.
+        In that lecture, we were introduced to Caesar and substitution ciphers, and we also saw how frequency analysis can be used to crack substitution ciphers.
       </p>
 
       <figure class="note-figure">
@@ -65,31 +64,23 @@
       </figure>
 
       <p>
-        I personally find this very interesting and amazing. Just by analyzing the letters' frequency (with a bit of trial-and-error), we can decrypt the text that looks like garbled text at the first glance.
-      </p>
-
-       <p>
-        Therefore, I proposed the theme of cryptography game to my teammates. At the same time, one of my teammates proposed to do a Fog of War game. 
-         So, we combined the two ideas and developed this game.
-      </p>
-
-      <h2>Interesting Things when Working on the Project</h2>
-      
-      <p>
-        Originally, we did not plan to implement a hint system. 
-        However, when I was testing the game, I totally could not solve the numeric cipher and substitution cipher without the help of AI. 
-        And even with the help of AI, the success rate was also lower than 50%. 
-        Therefore, I started to develop the hint system for the medium and hard mode (so that I can solve it without using AI).
-        <!--todo: add hint system readme pic-->
+        I found that idea especially interesting. A message that looks like meaningless text at first glance can still be deciphered through careful analysis.
       </p>
 
       <p>
-        Also, at first, the HP deducted for each enemy encountered was 25 (total HP: 100).
-        We did not realize anything wrong until the testing stage. For the 3x3 map in easy mode, the shortest path to reach the end only takes 3 rooms. 
-        It means that even if the player gave up solving the puzzles and just walk to the end, the final HP will still be positive. 
-        We then discussed about this issue and redesigned the HP deduction logic, forcing players to solve at least one puzzle in order to reach the end. 
+        That inspired me to propose a cryptography-themed game to my teammates. At the same time, one of them suggested a fog-of-war mechanic, so we combined the two ideas and developed Cipher Maze.
       </p>
-      
+
+      <h2>Interesting Things While Working on the Project</h2>
+
+      <p>
+        At first, we did not plan to include a hint system. During testing, however, I found that I could not reliably solve the numeric and substitution cipher puzzles without assistance. Even with the help of AI, the success rate was still below 50%. That led me to develop a hint system for the medium and hard modes so that the puzzles would remain solvable without external support.
+      </p>
+
+      <p>
+        Another issue appeared during testing. In easy mode, the 3x3 map could be completed in just three rooms, so even if a player ignored the puzzles and walked straight to the end, their HP would still remain positive. We discussed this problem and adjusted the damage logic so that players would need to solve at least one puzzle in order to reach the end room.
+      </p>
+
     </article>
     
   </main>

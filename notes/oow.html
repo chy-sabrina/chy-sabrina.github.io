@@ -4,11 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Out of Work</title>
+  <title>Out of Work [OOW] — Sabrina</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../styles.css?v=20260710-theme">
@@ -18,7 +17,6 @@
 <body>
 
   <header class="navbar">
-
     <div class="nav-name">
       <p>Sabrina Cheung</p>
     </div>
@@ -34,32 +32,47 @@
     </nav>
 
     <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
-
   </header>
 
   <main class="container">
 
     <article class="section note-page">
-      <a class="back-link" href="../notes.html">Back to Notes</a>
+      <a class="back-link" href="../notes.html">← Back to Notes</a>
 
-      <h2>A bit more about me</h2>
-      
-      <!-- todo: make it fun -->
-      
+      <h2>// oow (out of work)</h2>
+
       <p>
-        Interest beyond CS:
+        Everything here has zero connection to computer science. Consider this the log of what happens when I actually step away from the terminal.
       </p>
 
+      <h3>Off-Duty Rotation</h3>
+
       <ul>
-        <li>Keyboards (especially Electro-capacitive keyboards)</li>
-        <li>Gaming (Honkai: Star Rail & Arena of Valor)</li>
-        <li>Watch LoL (specifically LCK)</li>
-        <li>Kpop</li>
-        <li>Weather & Climate, Typhoon</li>
+        <li>Electro-Capacitive Keyboards:Customized mechanical keyboards are cool, but Topre/EC switches are my favourite.</li>
+        <li>Gaming: Currently playing <i>Honkai: Star Rail</i> and <i>Arena of Valor</i>.</li>
+        <li>Esports: Almost exclusively LCK.</li>
+        <li>Earth Science:Typhoon tracking and extreme weather patterns. I keep an eye on radar maps purely for fun.</li>
       </ul>
 
-      <h2>Current Favourite Song</h2>
-      <!-- <p><a class="link" href="todo" target="_blank" rel="noopener noreferrer">aespa - Kill it</a></p> -->
+      <h3>On Loop Right Now 🎧</h3>
+      <div class="song-widget" aria-label="Embedded song widget for aespa Kill It">
+        <a class="song-cover" href="#oow-player" aria-label="Jump to song player">
+          <img src="../pic/cover.jpg" alt="Album cover for aespa - Kill It">
+          <span class="song-hover-title">aespa — Kill It</span>
+        </a>
+
+        <div class="song-player-wrap" id="oow-player">
+          <iframe
+            class="song-player"
+            src="https://www.youtube.com/embed/1u20fRjQwRs"
+            title="YouTube player for aespa - Kill It"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
 
     </article>
     
