@@ -48,15 +48,157 @@
       <h3>Off-Duty Rotation</h3>
 
       <ul>
-        <li>Keyboards: Played with customized mechanical keyboards during secondary school, but addicated to Topre/ EC switches since high school</li>
-        <li>Gaming: Currently playing <i>Honkai: Star Rail</i> and <i>Arena of Valor</i></li>
-        <li>Music: Kpop</li>
-        <li>Esports: LoL (almost exclusively LCK)</li>
-        <li>Earth Science: Typhoon tracking and extreme weather patterns. I keep an eye on Radar Imagery, Satellite Imagery and Weather Chart purely for fun (or perhaps hoping for a holiday).</li>
+        <li>Electro-Capacitive Keyboards:Customized mechanical keyboards are cool, but Topre/EC switches are my favourite.</li>
+        <li>Gaming: Currently playing <i>Honkai: Star Rail</i> and <i>Arena of Valor</i>.</li>
+        <li>Esports: Almost exclusively LCK.</li>
+        <li>Earth Science:Typhoon tracking and extreme weather patterns. I keep an eye on radar maps purely for fun.</li>
       </ul>
 
       <h3>On Loop Right Now 🎧</h3>
-      <!-- todo: embed youtube/ youtube music -->
+      <div class="song-widget audio-player" id="oow-player" aria-label="Minimal audio player for aespa Kill It" data-src="../audio/kill-it.mp3" data-duration="225">
+        <div class="audio-card">
+          <img class="audio-cover" src="../pic/cover.jpg" alt="Album cover for aespa - Kill It" width="80" height="80">
+
+          <div class="audio-meta">
+            <p class="audio-kicker">now playing</p>
+            <h4 class="audio-title">Kill It</h4>
+            <p class="audio-artist">aespa</p>
+            <p class="audio-album">Album: Drama</p>
+          </div>
+        </div>
+
+        <div class="audio-controls">
+          <button class="audio-toggle" type="button" aria-label="Play Kill It" aria-pressed="false">
+            <span class="audio-toggle-icon" aria-hidden="true">▶</span>
+          </button>
+
+          <div class="audio-seek">
+            <span class="audio-time audio-current">0:00</span>
+            <input class="audio-progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek Kill It">
+            <span class="audio-time audio-duration">3:45</span>
+          </div>
+        </div>
+
+        <audio class="audio-element" preload="metadata"></audio>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          setupOowPlayer();
+        });
+
+        function setupOowPlayer() {
+          const player = document.querySelector('.audio-player');
+
+          if (!player) {
+            return;
+          }
+
+          const audio = player.querySelector('.audio-element');
+          const toggle = player.querySelector('.audio-toggle');
+          const icon = player.querySelector('.audio-toggle-icon');
+          const progress = player.querySelector('.audio-progress');
+          const currentTime = player.querySelector('.audio-current');
+          const durationTime = player.querySelector('.audio-duration');
+          const title = player.querySelector('.audio-title');
+          const source = player.dataset.src;
+          const trackDuration = Number(player.dataset.duration || 225);
+
+          if (!audio || !toggle || !icon || !progress || !currentTime || !durationTime) {
+            return;
+          }
+
+          const formatTime = seconds => {
+            if (!Number.isFinite(seconds) || seconds < 0) {
+              return '0:00';
+            }
+
+            const roundedSeconds = Math.floor(seconds);
+            const minutes = Math.floor(roundedSeconds / 60);
+            const remainder = String(roundedSeconds % 60).padStart(2, '0');
+
+            return `${minutes}:${remainder}`;
+          };
+
+          const setProgress = seconds => {
+            const safeTime = Math.max(0, Math.min(trackDuration, seconds));
+            const progressValue = trackDuration > 0 ? (safeTime / trackDuration) * 1000 : 0;
+
+            progress.value = String(progressValue);
+            progress.style.setProperty('--progress', `${progressValue / 10}%`);
+            currentTime.textContent = formatTime(safeTime);
+          };
+
+          const syncButtonState = () => {
+            const isPlaying = !audio.paused && !audio.ended;
+            const trackLabel = title ? title.textContent : 'track';
+
+            toggle.setAttribute('aria-pressed', String(isPlaying));
+            toggle.setAttribute('aria-label', `${isPlaying ? 'Pause' : 'Play'} ${trackLabel}`);
+            icon.textContent = isPlaying ? '❚❚' : '▶';
+          };
+
+          const ensureSource = () => {
+            if (audio.src || !source) {
+              return;
+            }
+
+            audio.src = source;
+          };
+
+          durationTime.textContent = formatTime(trackDuration);
+          setProgress(0);
+
+          toggle.addEventListener('click', async () => {
+            ensureSource();
+
+            if (audio.paused || audio.ended) {
+              try {
+                await audio.play();
+              } catch {
+                syncButtonState();
+              }
+
+              return;
+            }
+
+            audio.pause();
+          });
+
+          progress.addEventListener('input', () => {
+            const targetTime = (Number(progress.value) / 1000) * trackDuration;
+
+            setProgress(targetTime);
+
+            try {
+              audio.currentTime = targetTime;
+            } catch {
+              // Wait until the media is ready, then the next play/timeupdate cycle will catch up.
+            }
+          });
+
+          audio.addEventListener('timeupdate', () => {
+            if (!audio.ended) {
+              setProgress(audio.currentTime);
+            }
+          });
+
+          audio.addEventListener('play', () => {
+            syncButtonState();
+          });
+
+          audio.addEventListener('pause', () => {
+            syncButtonState();
+          });
+
+          audio.addEventListener('ended', () => {
+            syncButtonState();
+            setProgress(0);
+          });
+
+          syncButtonState();
+        }
+      </script>
 
     </article>
     
