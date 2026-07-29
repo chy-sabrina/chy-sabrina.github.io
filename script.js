@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   setupThemeToggle();
   setupClassifiedEasterEgg();
+  setupAnchorOffsetScrolling();
   syncClassifiedLinkLabel();
 
   const navLinks = document.querySelectorAll('nav a');
@@ -110,10 +111,18 @@ function setupClassifiedEasterEgg() {
   const input = document.getElementById('classified-token');
   const status = document.getElementById('classified-status');
   const unlockKey = 'classifiedUnlocked';
+  const defaultRedirectUrl = './notes.html';
 
   if (!overlay || !input || !status) {
     return;
   }
+
+  document.querySelectorAll('[data-classified-open]').forEach(trigger => {
+    trigger.addEventListener('click', event => {
+      event.preventDefault();
+      openClassifiedTerminal(trigger.dataset.classifiedTarget || defaultRedirectUrl);
+    });
+  });
 
   overlay.classList.add('hidden');
   overlay.style.display = 'none';
@@ -137,9 +146,10 @@ function setupClassifiedEasterEgg() {
       status.classList.add('is-success');
       sessionStorage.setItem(unlockKey, 'true');
       syncClassifiedLinkLabel();
+      const redirectUrl = overlay.dataset.classifiedTarget || defaultRedirectUrl;
 
       window.setTimeout(() => {
-        window.location.href = './notes.html';
+        window.location.href = redirectUrl;
       }, 1000);
 
       return;
@@ -159,7 +169,59 @@ function setupClassifiedEasterEgg() {
   });
 }
 
-function openClassifiedTerminal() {
+function setupAnchorOffsetScrolling() {
+  const navbar = document.querySelector('.navbar');
+
+  document.addEventListener('click', event => {
+    const anchor = event.target.closest('a[href*="#"]');
+
+    if (!anchor) {
+      return;
+    }
+
+    const url = new URL(anchor.href, window.location.href);
+
+    if (url.origin !== window.location.origin) {
+      return;
+    }
+
+    if (normalizePath(url.pathname) !== normalizePath(window.location.pathname)) {
+      return;
+    }
+
+    const targetId = decodeURIComponent(url.hash.replace('#', ''));
+
+    if (!targetId) {
+      return;
+    }
+
+    const targetElement = document.getElementById(targetId);
+
+    if (!targetElement) {
+      return;
+    }
+
+    event.preventDefault();
+    scrollToSection(targetElement, navbar);
+    window.history.replaceState(null, '', `${window.location.pathname}${url.search}${url.hash}`);
+  });
+
+  const initialHash = decodeURIComponent(window.location.hash.replace('#', ''));
+
+  if (!initialHash) {
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    const targetElement = document.getElementById(initialHash);
+
+    if (targetElement) {
+      scrollToSection(targetElement, navbar);
+    }
+  });
+}
+
+function openClassifiedTerminal(targetUrl = './notes.html') {
   const overlay = document.getElementById('classified-terminal');
   const input = document.getElementById('classified-token');
   const status = document.getElementById('classified-status');
@@ -171,10 +233,11 @@ function openClassifiedTerminal() {
 
   if (sessionStorage.getItem(unlockKey) === 'true') {
     syncClassifiedLinkLabel();
-    window.location.href = './notes.html';
+    window.location.href = targetUrl;
     return;
   }
 
+  overlay.dataset.classifiedTarget = targetUrl;
   overlay.classList.remove('hidden');
   overlay.style.display = 'flex';
   overlay.setAttribute('aria-hidden', 'false');
