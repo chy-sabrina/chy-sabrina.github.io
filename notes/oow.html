@@ -18,7 +18,7 @@
 
   <header class="navbar">
     <div class="nav-name">
-      <p>Sabrina Cheung</p>
+      <a href="../index.html">Sabrina Cheung</a>
     </div>
 
     <nav>
@@ -31,53 +31,141 @@
       <a href="../notes.html" aria-current="page">Notes</a>
     </nav>
 
-    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
+    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+      Dark
+    </button>
   </header>
 
   <main class="container">
 
     <article class="section note-page">
+
       <a class="back-link" href="../notes.html">← Back to Notes</a>
 
-      <h2>// oow</h2>
+      <h2>// out-of-work</h2>
 
       <p>
-        Everything here has zero connection to computer science. Consider this the log of what happens when I actually step away from the terminal.
+        Everything here has absolutely nothing to do with computer science.
+        Think of this as the log file of what happens when I finally close VS Code.
       </p>
+
+      <div class="terminal-note">
+        <p><code>> status</code></p>
+        <p>Successfully touched grass.</p>
+
+        <p><code>> cpu_usage</code></p>
+        <p>Redirected to keyboards, K-pop and weather maps.</p>
+
+        <p><code>> warning</code></p>
+        <p>This page contains dangerously strong opinions about Topre.</p>
+      </div>
 
       <h3>Off-Duty Rotation</h3>
 
       <ul>
-        <li>Keyboards: Customized mechanical keyboards are cool, but Topre is my favourite.</li>
-        <li>Music: 90% Kpop.</li>
-        <li>Gaming: Currently playing <i>Arena of Valor</i> and <i>Honkai: Star Rail</i>.</li>
-        <li>Esports: Almost exclusively LCK.</li>
-        <li>Earth Science: Typhoon tracking. I keep an eye on radar maps purely for fun.</li>
-        <!-- herhaps add link? https://www.hko.gov.hk/en/wxinfo/currwx/tc_gis.htm -->
-        <!-- fun fact? I took geography in hkdse; chose weather and climate as my elective (studied air pressure system, typhoon stuffs; pretty rare in my school) -->
+        <li>⌨️ <strong>Keyboards</strong> — Custom mechanical keyboards are cool, but Topre has completely spoiled me.</li>
+
+        <li>🎵 <strong>Music</strong> — About 90% K-pop. The remaining 10% depends on YouTube's recommendations.</li>
+
+        <li>🎮 <strong>Gaming</strong> — Currently playing <i>Arena of Valor</i> and <i>Honkai: Star Rail</i>.</li>
+
+        <li>🏆 <strong>Esports</strong> — Mostly LCK.</li>
+
+        <li>🌀 <strong>Earth Science</strong> — I voluntarily watch typhoon radar maps.</li>
       </ul>
 
-      <!-- todo: add some thoughts? -->
+      <div class="terminal-note">
+
+        <p><code>> fun_fact</code></p>
+        <p>
+          I took Geography in HKDSE and chose Weather & Climate as my elective.
+          Somehow learning about pressure systems eventually turned into checking
+          satellite imagery for fun.
+        </p>
+
+        <p><code>> normal_people</code></p>
+        <p>Check tomorrow's weather forecast.</p>
+
+        <p><code>> me</code></p>
+        <p>Checks JTWC, HKO radar, ECMWF models and satellite images because "that's interesting."</p>
+
+        <p><code>> verdict</code></p>
+        <p>Probably qualifies as a niche hobby.</p>
+
+      </div>
+
       <h3>Keyboard Setup</h3>
+
       <ul>
-        <li>Main keyboard: Realforce R3</li>
-        <ul>
-          <li>30g</li>
-          <li>Silent swtich</li>
-          <li>TKL</li>
-          <li>JIS layout</li>
-        </ul>
-        <li>Other keyboards I used to type on:</li>
-        <ul>
-          <li>Niz Micro84 35g</li>
-          <!-- todo: gas67, ciy68, ciy100 with ttc silent brown, ttc silent red, peach, silent yellow; ikbc cherry red-->
-        </ul>
+
+        <li>
+          <strong>Main keyboard</strong>
+
+          <ul>
+            <li>Realforce R3</li>
+            <li>30g Topre</li>
+            <li>Silent</li>
+            <li>TKL</li>
+            <li>JIS Layout</li>
+          </ul>
+
+        </li>
+
+        <li>
+          <strong>Previously typed on</strong>
+
+          <ul>
+            <li>NiZ Micro84 (35g)</li>
+            <li>GAS67</li>
+            <li>CIY68</li>
+            <li>CIY100</li>
+            <li>iKBC (Cherry MX Red)</li>
+          </ul>
+
+        </li>
+
       </ul>
-      
+
+      <div class="terminal-note">
+
+        <p><code>> switch_history</code></p>
+        <p>
+          TTC Silent Brown<br>
+          TTC Silent Red<br>
+          TTC Silent Yellow<br>
+          Peach
+        </p>
+
+        <p><code>> result</code></p>
+        <p>Ended up back on Topre.</p>
+
+        <p><code>> next_upgrade</code></p>
+        <p>Realforce R4... eventually.</p>
+
+      </div>
+
       <h3>On Loop Right Now 🎧</h3>
-      <div class="song-widget audio-player" id="oow-player" aria-label="Minimal audio player for aespa Kill It" data-src="../audio/kill-it.mp3" data-duration="225">
+
+      <div class="terminal-note">
+        <p><code>> music_player</code></p>
+        <p>
+          Spotify embeds were rejected for violating the website's minimalist aesthetic.
+          Tiny custom player approved instead.
+        </p>
+      </div>
+
+      <div class="song-widget audio-player"
+        id="oow-player"
+        aria-label="Minimal audio player for aespa Kill It"
+        data-youtube-id="1u20fRjQwRs">
+
         <div class="audio-card">
-          <img class="audio-cover" src="../pic/cover.jpg" alt="Album cover for aespa - Kill It" width="80" height="80">
+
+          <img class="audio-cover"
+            src="https://i.ytimg.com/vi/1u20fRjQwRs/hqdefault.jpg"
+            alt="Album cover for aespa - Kill It"
+            width="80"
+            height="80">
 
           <div class="audio-meta">
             <p class="audio-kicker">now playing</p>
@@ -85,148 +173,72 @@
             <p class="audio-artist">aespa</p>
             <p class="audio-album">Album: Drama</p>
           </div>
+
         </div>
 
         <div class="audio-controls">
-          <button class="audio-toggle" type="button" aria-label="Play Kill It" aria-pressed="false">
-            <span class="audio-toggle-icon" aria-hidden="true">▶</span>
+
+          <button class="audio-toggle"
+            type="button"
+            aria-label="Play Kill It"
+            aria-pressed="false">
+
+            <span class="audio-toggle-icon">▶</span>
+
           </button>
 
           <div class="audio-seek">
+
             <span class="audio-time audio-current">0:00</span>
-            <input class="audio-progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek Kill It">
-            <span class="audio-time audio-duration">3:45</span>
+
+            <input
+              class="audio-progress"
+              type="range"
+              min="0"
+              max="1000"
+              value="0"
+              step="1"
+              disabled>
+
+            <span class="audio-time audio-duration">--:--</span>
+
           </div>
+
         </div>
 
-        <audio class="audio-element" preload="metadata"></audio>
+        <div class="audio-youtube-host" id="oow-youtube-host"></div>
+
       </div>
 
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          setupOowPlayer();
-        });
+      <div class="terminal-note">
 
-        function setupOowPlayer() {
-          const player = document.querySelector('.audio-player');
+        <p><code>> current_status</code></p>
+        <p>Listening to aespa.</p>
 
-          if (!player) {
-            return;
-          }
+        <p><code>> estimated_duration</code></p>
+        <p>Indefinite.</p>
 
-          const audio = player.querySelector('.audio-element');
-          const toggle = player.querySelector('.audio-toggle');
-          const icon = player.querySelector('.audio-toggle-icon');
-          const progress = player.querySelector('.audio-progress');
-          const currentTime = player.querySelector('.audio-current');
-          const durationTime = player.querySelector('.audio-duration');
-          const title = player.querySelector('.audio-title');
-          const source = player.dataset.src;
-          const trackDuration = Number(player.dataset.duration || 225);
+      </div>
 
-          if (!audio || !toggle || !icon || !progress || !currentTime || !durationTime) {
-            return;
-          }
-
-          const formatTime = seconds => {
-            if (!Number.isFinite(seconds) || seconds < 0) {
-              return '0:00';
-            }
-
-            const roundedSeconds = Math.floor(seconds);
-            const minutes = Math.floor(roundedSeconds / 60);
-            const remainder = String(roundedSeconds % 60).padStart(2, '0');
-
-            return `${minutes}:${remainder}`;
-          };
-
-          const setProgress = seconds => {
-            const safeTime = Math.max(0, Math.min(trackDuration, seconds));
-            const progressValue = trackDuration > 0 ? (safeTime / trackDuration) * 1000 : 0;
-
-            progress.value = String(progressValue);
-            progress.style.setProperty('--progress', `${progressValue / 10}%`);
-            currentTime.textContent = formatTime(safeTime);
-          };
-
-          const syncButtonState = () => {
-            const isPlaying = !audio.paused && !audio.ended;
-            const trackLabel = title ? title.textContent : 'track';
-
-            toggle.setAttribute('aria-pressed', String(isPlaying));
-            toggle.setAttribute('aria-label', `${isPlaying ? 'Pause' : 'Play'} ${trackLabel}`);
-            icon.textContent = isPlaying ? '❚❚' : '▶';
-          };
-
-          const ensureSource = () => {
-            if (audio.src || !source) {
-              return;
-            }
-
-            audio.src = source;
-          };
-
-          durationTime.textContent = formatTime(trackDuration);
-          setProgress(0);
-
-          toggle.addEventListener('click', async () => {
-            ensureSource();
-
-            if (audio.paused || audio.ended) {
-              try {
-                await audio.play();
-              } catch {
-                syncButtonState();
-              }
-
-              return;
-            }
-
-            audio.pause();
-          });
-
-          progress.addEventListener('input', () => {
-            const targetTime = (Number(progress.value) / 1000) * trackDuration;
-
-            setProgress(targetTime);
-
-            try {
-              audio.currentTime = targetTime;
-            } catch {
-              // Wait until the media is ready, then the next play/timeupdate cycle will catch up.
-            }
-          });
-
-          audio.addEventListener('timeupdate', () => {
-            if (!audio.ended) {
-              setProgress(audio.currentTime);
-            }
-          });
-
-          audio.addEventListener('play', () => {
-            syncButtonState();
-          });
-
-          audio.addEventListener('pause', () => {
-            syncButtonState();
-          });
-
-          audio.addEventListener('ended', () => {
-            syncButtonState();
-            setProgress(0);
-          });
-
-          syncButtonState();
-        }
-      </script>
-      
       <p>
-        <i>And yes, the access code <code>imsabrina</code> is heavily inspired by WINTER (@imwinter).</i>
+        And yes, the access code <code>imsabrina</code> is shamelessly inspired by WINTER (@imwinter).
       </p>
-      
+
+      <div class="terminal-note">
+
+        <p><code>> exit</code></p>
+        <p>
+          Thanks for stopping by.
+          You've now learned that outside of computer science,
+          I mostly rotate between keyboards, K-pop, games and watching storms move across the Pacific.
+        </p>
+
+      </div>
+
     </article>
-    
+
   </main>
 
 </body>
+
 </html>

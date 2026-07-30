@@ -20,7 +20,7 @@
   <header class="navbar">
 
     <div class="nav-name">
-      <p>Sabrina Cheung</p>
+      <a href="../index.html">Sabrina Cheung</a>
     </div>
 
     <nav>
@@ -40,61 +40,97 @@
   <main class="container">
 
     <article class="section note-page">
+
       <a class="back-link" href="../notes.html">← Back to Notes</a>
 
-      <h2>Why I wanted to build this website</h2>
+      <h2>~/website</h2>
 
       <p>
-        The original idea was quite simple: I wanted to explain my projects in more detail than a CV would allow. I also wanted to share a fuller picture of my work without posting everything publicly on LinkedIn.
+        A few notes about why this portfolio exists, how the Notes section came to be, and the little Easter egg hidden inside.
+      </p>
+
+      <h3>How it started</h3>
+
+      <p>
+        The original idea was actually quite simple. I wanted somewhere to explain my projects in more detail than a CV could, while keeping everything in one place instead of scattering it across different platforms.
       </p>
 
       <p>
-        As a result, the first version of the site was designed as a simple page, which is the version you see at <a href="../index.html">chy-sabrina.github.io</a>. This <a href="../notes.html">Notes</a> page was not part of the original plan.
+        The first version of the website was just the portfolio page you see at
+        <a href="../index.html">chy-sabrina.github.io</a>.
+        There was not supposed to be a <a href="../notes.html">Notes</a> section at all.
       </p>
 
-      <h2>Why I created the Notes page</h2>
+      <h3>Why I added Notes</h3>
 
       <p>
-        While writing about my projects, I realized that there were many smaller stories, lessons, and reflections that I wanted to preserve. These notes give me a place to share the process behind the work, not only the final outcome.
-      </p>
-
-      <p>
-        I also wanted it to feel a little more personal and less formal than the main portfolio page. It became a space for thoughts that are more reflective and less polished, while still being meaningful to share.
-      </p>
-
-      <h2>Behind the Easter Egg</h2>
-
-      <p>
-        You might notice that this page is not completely out in the open. Since these reflections are quite personal, I did not want them to be instantly visible to everyone, but I still wanted to share them with anyone who was curious enough to look a little deeper. That is where the small, security-inspired Easter egg came from.
-      </p>
-
-      <h2>The Inspiration</h2>
-
-      <p>
-        The idea came from something I saw during my AIA internship. I was reading a penetration testing report and came across a classic authorization issue where a low-privilege user could change a request parameter like user_id to an admin value and gain access to actions they should not have been able to reach.
+        As I started writing about my projects, I realised there were many things that never made it onto the portfolio itself.
       </p>
 
       <p>
-        That little mechanic ended up inspiring this page’s access idea. By default, a visitor is treated as a "guest", and to unlock the notes, they have to switch that identifier to "admin", which is a playful nod to the flaw I saw in practice.
-      </p>
-
-      <h2>Designing the Clues</h2>
-
-      <p>
-        At first, I thought about using forced browsing and leaving the page completely unlinked in the navigation bar, so people would have to type the URL manually. But that felt a bit too obscure, since most people would never find it unless they happened to stumble across the GitHub repository.
+        Small design decisions, unexpected bugs, ideas that did not work, and lessons learnt along the way were all part of the project, but they did not really belong on the main page.
       </p>
 
       <p>
-        So I made it a little more playful. I left the link visible in the navigation bar, but without the access code hidden in the source code, this page cannot be opened. It makes it more of a small discovery game for anyone who is curious enough to inspect the page closely.
+        That is how the Notes section came about. Instead of only showing the final result, it gives me a place to document some of the process behind it.
       </p>
 
-      <!-- todo: first wanna add the role "guest" in code -> open f12 -> change to "admin" -> then the notes page is visible
-      but perhaps not much ppl will try to change this
-      -> idea 2: force browsing: not good because of the same reason
-      -> current idea: no need to modify the code nor read the source code; just open f12, find the access code, and type it in the fake "terminal" -->
-      
+      <p>
+        It is also intentionally a little less formal. Think of it as the part of the website where I can write down the things I would normally tell someone if they asked, "So... how did you actually build this?"
+      </p>
+
+      <h3>The hidden page</h3>
+
+      <p>
+        You might have noticed that this page is not immediately accessible.
+      </p>
+
+      <p>
+        I wanted these notes to be discoverable, but not something every visitor would stumble upon by accident. They are a bit more personal than the main portfolio, so hiding them behind a small challenge felt more interesting than simply adding another navigation link.
+      </p>
+
+      <h3>The inspiration</h3>
+
+      <p>
+        The idea actually came from my internship at AIA.
+      </p>
+
+      <p>
+        While reading a penetration testing report, I came across a classic broken authorization vulnerability. A low-privilege user could simply change a parameter like <code>user_id</code> to an administrator's value and suddenly gain access to functionality they should not have been able to reach.
+      </p>
+
+      <p>
+        It was one of those examples that seems almost too simple, yet has caused countless real-world security issues.
+      </p>
+
+      <p>
+        That eventually became the inspiration for the access mechanism used here. Every visitor starts as a "guest", and the hidden section is unlocked by becoming "admin"—a harmless little reference to an authorization flaw instead of an actual vulnerability.
+      </p>
+
+      <h3>Designing the puzzle</h3>
+
+      <p>
+        I considered a few different ideas before settling on the current one.
+      </p>
+
+      <p>
+        My first thought was to leave the page completely unlinked and rely on forced browsing. The problem was that almost nobody would ever discover it unless they happened to browse the GitHub repository.
+      </p>
+
+      <p>
+        I also thought about making visitors edit the page directly through Developer Tools, but that felt more like a trick than a puzzle.
+      </p>
+
+      <p>
+        The current version is a compromise between the two. The Notes page is visible in the navigation bar, but opening it requires finding the access code hidden in the page source and entering it into the fake terminal.
+      </p>
+
+      <p>
+        It is not meant to be secure—if anything, it is the opposite. It is simply a small Easter egg for anyone curious enough to press <code>F12</code> and have a look around.
+      </p>
+
     </article>
-    
+
   </main>
 
 </body>

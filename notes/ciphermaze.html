@@ -20,7 +20,7 @@
   <header class="navbar">
 
     <div class="nav-name">
-      <p>Sabrina Cheung</p>
+      <a href="../index.html">Sabrina Cheung</a>
     </div>
 
     <nav>
@@ -40,50 +40,88 @@
   <main class="container">
 
     <article class="section note-page">
+
       <a class="back-link" href="../notes.html">← Back to Notes</a>
 
-      <h2>Background</h2>
+      <h2>~/ciphermaze</h2>
 
       <p>
-        <a href="../index.html#CipherMaze">Cipher Maze</a> is the course project for COMP2113. Our team was asked to design and build a text-based mini-game.
+        Some notes from building <a href="../index.html#CipherMaze">Cipher Maze</a>, our COMP2113 course project.
       </p>
 
-      <h2>Why this theme?</h2>
+      <h3>Background</h3>
 
       <p>
-        By the time our team was deciding on the theme, COMP1110 had just covered the topic of cybersecurity and cryptography.
+        Cipher Maze was the final group project for COMP2113. The assignment was to design and build a text-based mini game using C++.
       </p>
 
       <p>
-        In that lecture, we were introduced to Caesar and substitution ciphers, and we also saw how frequency analysis can be used to crack substitution ciphers.
+        Once we started brainstorming ideas, we decided to build a game around cryptography. It was something we had recently learnt in another course, and it felt like an interesting theme that could naturally become part of the gameplay.
+      </p>
+
+      <h3>Why cryptography?</h3>
+
+      <p>
+        Around the same time, COMP1110 had just introduced some basic concepts in cybersecurity and cryptography.
+      </p>
+
+      <p>
+        We learnt about Caesar ciphers, substitution ciphers, and how frequency analysis can be used to decrypt substitution ciphers without knowing the key beforehand.
       </p>
 
       <figure class="note-figure">
-        <img src="https://image1.slideserve.com/2202665/cryptanalysis-of-simple-substitution-cipher1-l.jpg" alt="Decrypting substitution cipher using frequency analysis">
-        <figcaption>Decrypting substitution cipher using frequency analysis</figcaption>
+        <img src="https://image1.slideserve.com/2202665/cryptanalysis-of-simple-substitution-cipher1-l.jpg"
+          alt="Decrypting substitution cipher using frequency analysis">
+
+        <figcaption>
+          Frequency analysis used to decrypt a substitution cipher.
+        </figcaption>
       </figure>
 
       <p>
-        I found that idea especially interesting. A message that looks like meaningless text at first glance can still be deciphered through careful analysis.
+        I found that idea particularly interesting. Even though the text looks completely random at first, patterns in the letters can gradually reveal the original message.
       </p>
 
       <p>
-        That inspired me to propose a cryptography-themed game to my teammates. At the same time, one of them suggested a fog-of-war mechanic, so we combined the two ideas and developed Cipher Maze.
+        I suggested making cryptography the main theme of our game, while another teammate proposed a fog-of-war exploration mechanic. We eventually combined both ideas into what became Cipher Maze.
       </p>
 
-      <h2>Interesting Things While Working on the Project</h2>
+      <h3>Building the game</h3>
 
       <p>
-        At first, we did not plan to include a hint system. During testing, however, I found that I could not reliably solve the numeric and substitution cipher puzzles without assistance. Even with the help of AI, the success rate was still below 50%. That led me to develop a hint system for the medium and hard modes so that the puzzles would remain solvable without external support.
+        One feature that was not part of the original plan was the hint system.
       </p>
 
       <p>
-        Another issue appeared during testing. In easy mode, the 3x3 map could be completed in just three rooms, so even if a player ignored the puzzles and walked straight to the end, their HP would still remain positive. We discussed this problem and adjusted the damage logic so that players would need to solve at least one puzzle in order to reach the end room.
+        During testing, I realised the numeric and substitution cipher puzzles were much more difficult than I had expected. Even after understanding how they worked, solving them consistently was not easy. That made me think new players would probably have an even harder time.
+      </p>
+
+      <p>
+        To make the game more approachable, I implemented a hint system for the medium and hard difficulties. The hints do not reveal the answer directly, but they give players enough information to continue without relying on external tools.
+      </p>
+
+      <p>
+        We also discovered a balancing issue during playtesting. In easy mode, the map was only 3×3, so players could simply walk straight to the exit while ignoring every puzzle and still have enough HP to survive.
+      </p>
+
+      <p>
+        After discussing it as a team, we adjusted the damage calculation so players would need to solve at least one puzzle before reaching the end room. It was a small change, but it made the puzzles feel like an essential part of the game instead of something that could be skipped entirely.
+      </p>
+
+      <h3>Takeaways</h3>
+
+      <p>
+        Looking back, the most valuable part of the project was not implementing new features—it was testing the game repeatedly and finding things we had not anticipated.
+      </p>
+
+      <p>
+        Many of the final improvements, such as the hint system and the balancing changes, only came from actually playing the game ourselves. It reminded me that building software is only part of the process; observing how people interact with it is just as important.
       </p>
 
     </article>
-    
+
   </main>
 
 </body>
+
 </html>

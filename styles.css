@@ -78,6 +78,38 @@ body {
   font-weight: 600;
 }
 
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-brand:hover {
+  color: var(--muted);
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.nav-name a:not(.nav-brand) {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-name a:not(.nav-brand):hover {
+  color: var(--muted);
+}
+
 .navbar nav {
   display: flex;
   gap: 18px;
@@ -536,6 +568,7 @@ button.github-btn {
 }
 
 .audio-player {
+  position: relative;
   display: grid;
   gap: 14px;
   width: min(100%, 540px);
@@ -616,6 +649,11 @@ button.github-btn {
 .audio-toggle:hover,
 .audio-toggle:focus-visible {
   background: var(--hover);
+}
+
+.audio-toggle:disabled {
+  cursor: wait;
+  opacity: 0.55;
 }
 
 .audio-toggle-icon {
@@ -702,6 +740,17 @@ button.github-btn {
 .audio-progress:disabled {
   cursor: default;
   opacity: 0.7;
+}
+
+.audio-youtube-host,
+#oow-youtube-host {
+  position: fixed;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
