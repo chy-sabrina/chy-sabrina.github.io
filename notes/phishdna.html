@@ -20,7 +20,7 @@
   <header class="navbar">
 
     <div class="nav-name">
-      <a href="index.html" class="nav-brand">
+      <a href="../index.html" class="nav-brand">
         <img class="nav-avatar" src="https://avatars.githubusercontent.com/u/216642597?v=4" alt="" width="32" height="32">
         <span>Sabrina Cheung</span>
       </a>
@@ -47,203 +47,180 @@
 
       <h2>~/phishdna</h2>
 
-      <p>
-        Some notes from building <a href="../index.html#PhishDNA">PhishDNA</a>, my CCAI9028 course project.
-      </p>
+      <p>Some notes from building <a href="../index.html#PhishDNA">PhishDNA</a>, my final project for CCAI9028 – <i>The Age of Big Data</i>.</p>
 
-      <h3>Background</h3>
+      <p>PhishDNA started as a course project, but it ended up changing how I think about machine learning. Before this project, I thought choosing the right model was the difficult part. Instead, most of my time was spent understanding the data and figuring out why the model behaved the way it did.</p>
 
-      <p>
-        PhishDNA was developed for CCAI9028 – <i>The Age of Big Data</i>. The assignment was to design and build a data analytics or AI project that addresses a real-world problem in Hong Kong.
-      </p>
+      <h3>Why I built it</h3>
 
-      <p>
-        I wanted to work on something related to cybersecurity, so I decided to build a phishing URL detection system that predicts the risk of a website based only on its URL.
-      </p>
+      <p>Around Feb 2026, I came across a Threads post showing a phishing website pretending to be HSBC.</p>
 
-      <h3>Why PhishDNA?</h3>
-
-      <p>
-        Around February 2026, I came across a Threads post showing a phishing website that closely resembled HSBC's official website.
-      </p>
-
-      <p>
-        Most of the replies reminded the original poster not to enter any personal information. The poster replied, "Of course I will not! As long as I do not type anything in, I am safe."
-      </p>
-
-      <p>
-        I shared the post on my own account and added some thoughts. Surprisingly, several of my friends replied saying they had always believed the same thing.
-      </p>
-
-      <p>
-        That was when I realised this misconception is actually quite common among people who are not familiar with cybersecurity.
-      </p>
-
-      <p>
-        In reality, not every attack requires victims to submit information. Some attacks, such as drive-by downloads or certain XSS attacks, can already compromise a device simply by visiting a malicious webpage.
-      </p>
-
-      <p>
-        That became the motivation behind PhishDNA.
-      </p>
-
-      <p>
-        Instead of analysing the webpage itself—which may require loading potentially malicious content—I wanted to see how much information could be extracted from the URL alone. If a URL already shows strong signs of phishing, users can be warned before the page is even loaded.
-      </p>
-
-      <h3>Original idea</h3>
-
-      <p>
-        My original plan was for the browser extension to block dangerous websites automatically whenever the predicted risk score exceeded a certain threshold.
-      </p>
-
-      <pre><code>Read active tab URL
-↓
-Send URL to backend
-↓
-Extract lexical features
-↓
-Predict risk score using trained model
-↓
-Apply whitelist & override rules
-↓
-Calculate final risk score
-↓
-If risk score > 75
-Block page and display warning</code></pre>
-
-      <p>
-        However, due to time constraints and the complexity of intercepting browser requests safely, I decided to simplify the final implementation.
-      </p>
-
-      <pre><code>Read active tab URL
-↓
-Send URL to backend
-↓
-Extract lexical features
-↓
-Predict risk score using trained model
-↓
-Apply whitelist & override rules
-↓
-Calculate final risk score
-↓
-Display risk score and explanation
-through the browser extension</code></pre>
-
-      <h3>Development log</h3>
-
-      <p><strong>Week 1</strong></p>
-
-      <ul>
-        <li>Collected the initial datasets.</li>
-        <li>Trained the first machine learning model.</li>
-      </ul>
-
-      <p><strong>Week 2</strong></p>
-
-      <ul>
-        <li>Started testing the model.</li>
-        <li>The evaluation metrics looked great—accuracy, precision and recall were all above 90%.</li>
-        <li>Unfortunately, the model performed terribly on real websites.</li>
-        <li>Almost every URL from my own browsing history was classified as dangerous.</li>
-      </ul>
-
-      <p>
-        That was the moment I realised a good test accuracy does not necessarily mean the model performs well in the real world.
-      </p>
-
-      <p><strong>Week 3</strong></p>
-
-      <ul>
-        <li>Adjusted the scoring logic.</li>
-        <li>Replaced URL length with effective URL length.</li>
-        <li>Limited the contribution of individual features so that no single feature could dominate the final score.</li>
-      </ul>
-
-      <p>
-        Looking back, I spent quite a lot of time tuning the scoring rules before questioning whether the dataset itself was the problem.
-      </p>
-
-      <p><strong>Week 4</strong></p>
-
-      <ul>
-        <li>Worked on the project report.</li>
-        <li>Researched existing phishing detection approaches.</li>
-      </ul>
-
-      <p><strong>Week 5</strong></p>
-
-      <ul>
-        <li>Finally inspected the datasets more carefully.</li>
-      </ul>
-
-      <p>
-        That was when I found the real issue.
-      </p>
-
-      <ul>
-        <li>Legitimate URLs were mostly short, clean domain names such as <code>www.apple.com</code>.</li>
-        <li>Phishing URLs were almost all extremely long, random-looking URLs.</li>
-      </ul>
-
-      <p>
-        The model was not really learning phishing patterns—it was learning that "long URLs are bad."
-      </p>
-
-      <p>
-        After discovering this bias, I replaced the datasets with larger and more representative public datasets from multiple sources.
-      </p>
-
-      <p><strong>Week 6–7</strong></p>
-
-      <ul>
-        <li>Retrained the model.</li>
-        <li>Refined the scoring rules.</li>
-        <li>Added brand deception detection.</li>
-      </ul>
+      <p>The website looked very convincing. Most of the comments reminded the original poster not to enter any personal information. The poster replied,</p>
 
       <blockquote>
-        <p>
-          A phishing URL like
-          <code>whatsd-app.com</code>
-          is clearly trying to imitate WhatsApp.
-        </p>
-
-        <p>
-          Humans notice this almost immediately, but machine learning models do not naturally understand brand impersonation. I therefore added additional rules to capture these kinds of deception techniques.
-        </p>
+        <p>"Of course I won't. As long as I don't type anything in, I'm safe."</p>
       </blockquote>
 
-      <p><strong>Week 8</strong></p>
+      <p>I shared the post on my own account, and a few friends replied saying they had always thought the same thing.</p>
+
+      <p>That surprised me.</p>
+
+      <p>Many people think phishing websites only become dangerous after they enter their password or credit card details. In reality, simply visiting a malicious website can already expose users to attacks such as drive-by downloads or browser-based exploits.</p>
+
+      <p>That made me wonder whether it was possible to warn users <em>before</em> the webpage even loaded.</p>
+
+      <p>Instead of analysing the webpage itself — which means interacting with potentially malicious content — I wanted to see how much information could be extracted from the URL alone. If the URL already looked suspicious, maybe users could be warned before opening the page.</p>
+
+      <p>That became the starting point of PhishDNA.</p>
+
+      <h3>The original idea</h3>
+
+      <p>My original plan was actually more ambitious than the final project.</p>
+
+      <p>I wanted the browser extension to intercept a website before the browser sent the request. If the predicted risk score was high enough, the extension would block the page completely and show a warning instead.</p>
+
+      <p>As I started building it, I realized there were a lot more things to consider than I had expected. Intercepting browser requests properly would take much more time than I had left for the course.</p>
+
+      <p>In the end, I simplified the project.</p>
+
+      <p>Instead of blocking websites, the extension analyses the current URL, predicts a phishing risk score, and explains why the URL might be suspicious. It still demonstrates the complete detection pipeline while keeping the project manageable within one semester.</p>
+
+      <h3>Everything looked perfect… at first</h3>
+
+      <p>The first model looked really promising.</p>
+
+      <p>I trained a Random Forest model and evaluated it using the test dataset.</p>
+
+      <p>Accuracy, precision, and recall were all above 90%.</p>
+
+      <p>At that point, I honestly thought I was almost done.</p>
+
+      <p>Then I started testing websites I actually visit every day.</p>
 
       <ul>
-        <li>Built the browser extension.</li>
-        <li>Integrated the trained model with the extension.</li>
+        <li>Google</li>
+        <li>GitHub</li>
+        <li>HKU</li>
+        <li>Government websites</li>
       </ul>
 
-      <p>
-        During testing, I noticed the browser extension sometimes produced different risk scores from the command-line version.
-      </p>
+      <p>Some of them were classified as phishing.</p>
 
-      <p>
-        It turned out the browser extension was not applying the hard override rules, such as automatically assigning trusted government domains a risk score of zero. Once those rules were added, both versions became consistent.
-      </p>
+      <p>That's when I realized something I hadn't expected.</p>
 
-      <h3>Takeaways</h3>
+      <p>A model can perform really well on a test dataset and still perform terribly in the real world.</p>
+
+      <p>That was probably the biggest surprise of the entire project.</p>
+
+      <h3>I spent a week fixing the wrong thing</h3>
+
+      <p>My first reaction was to assume the model needed more tuning.</p>
+
+      <p>So I started changing everything.</p>
 
       <ul>
-        <li>Building a machine learning model is much harder than simply training one.</li>
-        <li>Dataset quality matters just as much as model selection.</li>
-        <li>Evaluation metrics do not always reflect real-world performance.</li>
-        <li>Phishing detection is closely connected to social engineering, not just machine learning.</li>
-        <li>Sometimes the biggest breakthrough comes from questioning the dataset rather than the algorithm.</li>
+        <li>I adjusted the scoring logic.</li>
+        <li>I replaced URL length with effective URL length (only counting the length of FQDN instead of the full URL).</li>
+        <li>I limited the contribution of certain features so that no single feature could dominate the prediction.</li>
+        <li>I kept retraining the model, hoping the false positives would disappear.</li>
       </ul>
+
+      <p>They didn't.</p>
+
+      <p>It took me a while to realize I was solving the wrong problem.</p>
+
+      <h3>The dataset was cheating</h3>
+
+      <p>Eventually, I stopped looking at the model and started looking at the data.</p>
+
+      <p>That's when everything suddenly made sense.</p>
+
+      <p>The legitimate URLs in my dataset were mostly simple domain names like:</p>
+
+      <pre><code>google.com
+                 apple.com
+                 github.com</code></pre>
+
+      <p>Meanwhile, almost every phishing sample was an extremely long URL full of random-looking strings.</p>
+
+      <p>The model wasn't really learning phishing patterns.</p>
+
+      <p>It had simply learned that long URLs usually meant phishing.</p>
+
+      <p>Technically, the model achieved high accuracy.</p>
+
+      <p>In reality, it had found a shortcut.</p>
+
+      <p>I remember opening the feature importance graph and seeing URL length taking up most of the importance score. That was the moment I realized something wasn't right.</p>
+
+      <p>Replacing the dataset probably improved the project more than all the tuning I had done before.</p>
+
+      <p>I ended up rebuilding the training pipeline using much larger public datasets, including the Global Phishing Database, the Tranco Top Sites list, and a Hong Kong-specific dataset containing legitimate government, banking, and education domains.</p>
+
+      <h3>Teaching the model what humans notice</h3>
+
+      <p>Once the dataset became more balanced, I started thinking about something else.</p>
+
+      <p>There are URLs that most people would immediately find suspicious.</p>
+
+      <p>For example:</p>
+
+      <pre><code>whatsd-app.com
+                 paypa1.com
+                 apple-security-check.top</code></pre>
+
+      <p>A machine learning model doesn't naturally understand why those look suspicious.</p>
+
+      <p>So I started adding features that capture things humans notice almost instinctively.</p>
+
+      <ul>
+        <li>Does it look like a typo of an existing website?</li>
+        <li>Is it using a suspicious top-level domain?</li>
+        <li>Does it contain a long string of random-looking characters?</li>
+      </ul>
+
+      <p>Instead of relying on one feature, the model gradually learned to combine many small signals together.</p>
+
+      <p>That made the predictions much more reliable than simply checking whether a URL was long.</p>
+
+      <h3>Building the extension</h3>
+
+      <p>Once I was happy with the model, I started working on the Chrome extension.</p>
+
+      <p>The extension reads the current URL, sends it to a FastAPI backend, receives the prediction, and displays the phishing risk score together with an explanation.</p>
+
+      <p>Most of the implementation went quite smoothly, but I ran into one bug that confused me for a while.</p>
+
+      <p>The extension sometimes produced different results from the Python version.</p>
+
+      <p>The same URL could receive two different risk scores.</p>
+
+      <p>After a few hours of debugging, I realized the extension wasn't applying my hard override rules.</p>
+
+      <p>For example, trusted government domains should always receive a risk score of zero, but the extension was still sending them through the normal scoring pipeline.</p>
+
+      <p>Once I fixed that, both versions finally produced the same results.</p>
+
+      <h3>Looking back</h3>
+
+      <p>Before this project, I thought the hardest part of machine learning would be choosing the right model.</p>
+
+      <p>Now I think that's probably one of the easier parts.</p>
+
+      <p>Most of my time was spent understanding the data, figuring out why the model behaved strangely, and checking whether the results actually made sense.</p>
+
+      <p>Another thing I learned is that evaluation metrics don't tell the whole story. A model with high accuracy isn't necessarily useful if it fails on real websites.</p>
+
+      <p>Finally, I realized that machine learning alone isn't enough for phishing detection.</p>
+
+      <p>The final version of PhishDNA combines machine learning with rule-based checks because some phishing techniques are much easier to describe with explicit rules than expecting the model to learn everything from data.</p>
+
+      <p>If I were to rebuild PhishDNA today, I'd probably spend less time tuning the algorithm and more time understanding the dataset first.</p>
 
     </article>
-
 
   </main>
 
 </body>
+
 </html>
