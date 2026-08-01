@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Website | Notes</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    })();
+  </script>
 
   <link rel="stylesheet" href="../styles.css?v=20260710-theme">
   <script src="../script.js?v=20260710-theme" defer></script>
@@ -44,7 +47,7 @@
 
     <article class="section note-page">
 
-      <a class="back-link" href="../notes.html">← Back to Notes</a>
+      <a class="back-link" href="../notes.html">Back to Notes</a>
 
       <h2>~/website</h2>
 
@@ -95,41 +98,27 @@
       <h3>The inspiration</h3>
 
       <p>
-        The idea actually came from my internship at AIA.
+        The idea for the Easter egg actually came from my internship at AIA.
       </p>
 
       <p>
-        While reading a penetration testing report, I came across a classic broken authorization vulnerability. A low-privilege user could simply change a parameter like <code>user_id</code> to an administrator's value and suddenly gain access to functionality they should not have been able to reach.
+        While reading a penetration testing report, I came across a classic broken authorization vulnerability. A low-privilege user could simply change a parameter such as <code>role=guest</code> to <code>role=admin</code> and suddenly gain access to functionality they were never supposed to see.
       </p>
 
       <p>
-        It was one of those examples that seems almost too simple, yet has caused countless real-world security issues.
+        I thought it would be fun to turn that into a harmless Easter egg. My first idea was to let every visitor arrive as a "guest" and have them discover they could change their role to "admin" through Developer Tools to unlock the Notes section.
       </p>
 
       <p>
-        That eventually became the inspiration for the access mechanism used here. Every visitor starts as a "guest", and the hidden section is unlocked by becoming "admin"—a harmless little reference to an authorization flaw instead of an actual vulnerability.
-      </p>
-
-      <h3>Designing the puzzle</h3>
-
-      <p>
-        I considered a few different ideas before settling on the current one.
+        After thinking about it a bit more, I realized it was probably too obscure. Even if someone noticed the word "guest", most people would never think to edit it.
       </p>
 
       <p>
-        My first thought was to leave the page completely unlinked and rely on forced browsing. The problem was that almost nobody would ever discover it unless they happened to browse the GitHub repository.
+        So I explored another idea instead: hiding the Notes page completely and letting people discover it through forced browsing. That felt closer to the security theme, but it still had the same problem—it was almost impossible to find unless someone happened to browse the GitHub repository.
       </p>
 
       <p>
-        I also thought about making visitors edit the page directly through Developer Tools, but that felt more like a trick than a puzzle.
-      </p>
-
-      <p>
-        The current version is a compromise between the two. The Notes page is visible in the navigation bar, but opening it requires finding the access code hidden in the page source and entering it into the fake terminal.
-      </p>
-
-      <p>
-        It is not meant to be secure—if anything, it is the opposite. It is simply a small Easter egg for anyone curious enough to press <code>F12</code> and have a look around.
+        The current version is a compromise between the two. The Notes page is visible, but opening it requires finding the access code hidden in the page source and entering it into the fake terminal. It is not meant to be secure—quite the opposite. It is simply a small nod to the kinds of security concepts that inspired it, and a little reward for anyone curious enough to press <code>F12</code> and explore.
       </p>
 
     </article>

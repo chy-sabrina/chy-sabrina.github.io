@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PhishDNA | Notes</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    })();
+  </script>
 
   <link rel="stylesheet" href="../styles.css?v=20260710-theme">
   <script src="../script.js?v=20260710-theme" defer></script>
@@ -43,7 +46,7 @@
   <main class="container">
 
     <article class="section note-page">
-      <a class="back-link" href="../notes.html">← Back to Notes</a>
+      <a class="back-link" href="../notes.html">Back to Notes</a>
 
       <h2>~/phishdna</h2>
 
@@ -58,7 +61,7 @@
       <p>The website looked very convincing. Most of the comments reminded the original poster not to enter any personal information. The poster replied,</p>
 
       <blockquote>
-        <p>"Of course I won't. As long as I don't type anything in, I'm safe."</p>
+        <p>"Of course I won't. As long as I do not type anything in, I am safe."</p>
       </blockquote>
 
       <p>I shared the post on my own account, and a few friends replied saying they had always thought the same thing.</p>
@@ -106,7 +109,7 @@
 
       <p>Some of them were classified as phishing.</p>
 
-      <p>That's when I realized something I hadn't expected.</p>
+      <p>That is when I realized something I had not expected.</p>
 
       <p>A model can perform really well on a test dataset and still perform terribly in the real world.</p>
 
@@ -125,7 +128,7 @@
         <li>I kept retraining the model, hoping the false positives would disappear.</li>
       </ul>
 
-      <p>They didn't.</p>
+      <p>They did not.</p>
 
       <p>It took me a while to realize I was solving the wrong problem.</p>
 
@@ -133,7 +136,7 @@
 
       <p>Eventually, I stopped looking at the model and started looking at the data.</p>
 
-      <p>That's when everything suddenly made sense.</p>
+      <p>That is when everything suddenly made sense.</p>
 
       <p>The legitimate URLs in my dataset were mostly simple domain names like:</p>
 
@@ -143,7 +146,7 @@ github.com</code></pre>
 
       <p>Meanwhile, almost every phishing sample was an extremely long URL full of random-looking strings.</p>
 
-      <p>The model wasn't really learning phishing patterns.</p>
+      <p>The model was not really learning phishing patterns.</p>
 
       <p>It had simply learned that long URLs usually meant phishing.</p>
 
@@ -151,7 +154,7 @@ github.com</code></pre>
 
       <p>In reality, it had found a shortcut.</p>
 
-      <p>I remember opening the feature importance graph and seeing URL length taking up most of the importance score. That was the moment I realized something wasn't right.</p>
+      <p>I remember opening the feature importance graph and seeing URL length taking up most of the importance score. That was the moment I realized something was not right.</p>
 
       <p>Replacing the dataset probably improved the project more than all the tuning I had done before.</p>
 
@@ -169,7 +172,7 @@ github.com</code></pre>
 paypa1.com
 apple-security-check.top</code></pre>
 
-      <p>A machine learning model doesn't naturally understand why those look suspicious.</p>
+      <p>A machine learning model does not naturally understand why those look suspicious.</p>
 
       <p>So I started adding features that capture things humans notice almost instinctively.</p>
 
@@ -195,7 +198,7 @@ apple-security-check.top</code></pre>
 
       <p>The same URL could receive two different risk scores.</p>
 
-      <p>After a few hours of debugging, I realized the extension wasn't applying my hard override rules.</p>
+      <p>After a few hours of debugging, I realized the extension was not applying my hard override rules.</p>
 
       <p>For example, trusted government domains should always receive a risk score of zero, but the extension was still sending them through the normal scoring pipeline.</p>
 
@@ -205,17 +208,17 @@ apple-security-check.top</code></pre>
 
       <p>Before this project, I thought the hardest part of machine learning would be choosing the right model.</p>
 
-      <p>Now I think that's probably one of the easier parts.</p>
+      <p>Now I think that is probably one of the easier parts.</p>
 
       <p>Most of my time was spent understanding the data, figuring out why the model behaved strangely, and checking whether the results actually made sense.</p>
 
-      <p>Another thing I learned is that evaluation metrics don't tell the whole story. A model with high accuracy isn't necessarily useful if it fails on real websites.</p>
+      <p>Another thing I learned is that evaluation metrics do not tell the whole story. A model with high accuracy is not necessarily useful if it fails on real websites.</p>
 
-      <p>Finally, I realized that machine learning alone isn't enough for phishing detection.</p>
+      <p>Finally, I realized that machine learning alone is not enough for phishing detection.</p>
 
       <p>The final version of PhishDNA combines machine learning with rule-based checks because some phishing techniques are much easier to describe with explicit rules than expecting the model to learn everything from data.</p>
 
-      <p>If I were to rebuild PhishDNA today, I'd probably spend less time tuning the algorithm and more time understanding the dataset first.</p>
+      <p>If I were to rebuild PhishDNA today, I would probably spend less time tuning the algorithm and more time understanding the dataset first.</p>
 
     </article>
 

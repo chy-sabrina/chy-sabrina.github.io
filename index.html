@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Access Token: imsabrina -->
 
 <head>
-  <!-- Access Token: imsabrina -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>chy-sabrina.github.io</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    })();
+  </script>
 
   <link rel="stylesheet" href="styles.css?v=20260710-theme">
   <script src="script.js?v=20260710-theme" defer></script>
@@ -56,7 +59,7 @@
         Most of my learning happens through building, figuring things out along the way, fixing bugs, and picking up new tools as projects evolve.
       </p>
       <p>
-        Current interest: AI security, AI-driven cyberattacks and defenses
+        Current interest: AI security, AI-driven cyberattacks and defenses, phishing techniques
       </p>
 
     </section>
@@ -246,7 +249,7 @@
     </section>
 
     <footer class="footer">
-      Last Updated: July 2026
+      Last Updated: Aug 2026
     </footer>
 
   </main>

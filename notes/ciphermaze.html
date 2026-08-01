@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CipherMaze | Notes</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    })();
+  </script>
 
   <link rel="stylesheet" href="../styles.css?v=20260710-theme">
   <script src="../script.js?v=20260710-theme" defer></script>
@@ -44,7 +47,7 @@
 
     <article class="section note-page">
 
-      <a class="back-link" href="../notes.html">← Back to Notes</a>
+      <a class="back-link" href="../notes.html">Back to Notes</a>
 
       <h2>~/cipher-maze</h2>
 
@@ -69,7 +72,7 @@
       </p>
 
       <figure class="note-figure">
-        <img src="https://image1.slideserve.com/2202665/cryptanalysis-of-simple-substitution-cipher1-l.jpg"
+        <img src="../pic/substitution-cipher.jpg"
           alt="Decrypting substitution cipher using frequency analysis">
 
         <figcaption>
