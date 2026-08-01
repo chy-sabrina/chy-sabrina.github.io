@@ -302,26 +302,22 @@ function loadYouTubeIframeAPI() {
 }
 
 function setupYoutubeAudioPlayer() {
-  const playerRoot = document.querySelector('.audio-player[data-youtube-id]');
+  const playerRoot = document.querySelector('.audio-player[data-youtube-url], .audio-player[data-youtube-id]');
 
   if (!playerRoot) {
     return;
   }
 
-  const videoId = playerRoot.dataset.youtubeId;
   const host = playerRoot.querySelector('.audio-youtube-host');
-
-  if (!videoId || !host || !host.id) {
-    return;
-  }
-
   const toggle = playerRoot.querySelector('.audio-toggle');
   const icon = playerRoot.querySelector('.audio-toggle-icon');
   const progress = playerRoot.querySelector('.audio-progress');
   const currentTimeEl = playerRoot.querySelector('.audio-current');
   const durationTimeEl = playerRoot.querySelector('.audio-duration');
+  const titleEl = playerRoot.querySelector('.audio-title');
+  const artistEl = playerRoot.querySelector('.audio-artist');
 
-  if (!toggle || !icon || !progress || !currentTimeEl || !durationTimeEl) {
+  if (!host || !host.id || !toggle || !icon || !progress || !currentTimeEl || !durationTimeEl || !titleEl || !artistEl) {
     return;
   }
 
@@ -330,6 +326,35 @@ function setupYoutubeAudioPlayer() {
   let pendingPlay = false;
   let tickTimer = null;
   let trackDuration = 0;
+  let loadToken = 0;
+
+  const resolveVideoUrl = () => playerRoot.dataset.youtubeUrl || (playerRoot.dataset.youtubeId ? `https://www.youtube.com/watch?v=${playerRoot.dataset.youtubeId}` : '');
+
+  const parseVideoId = value => {
+    if (!value) {
+      return '';
+    }
+
+    try {
+      const parsedUrl = new URL(value, window.location.href);
+
+      if (parsedUrl.hostname.includes('youtu.be')) {
+        return parsedUrl.pathname.split('/').filter(Boolean)[0] || '';
+      }
+
+      if (parsedUrl.pathname === '/watch') {
+        return parsedUrl.searchParams.get('v') || '';
+      }
+
+      if (parsedUrl.pathname.startsWith('/embed/')) {
+        return parsedUrl.pathname.split('/')[2] || '';
+      }
+
+      return parsedUrl.searchParams.get('v') || value;
+    } catch {
+      return value;
+    }
+  };
 
   toggle.disabled = true;
 
@@ -345,10 +370,45 @@ function setupYoutubeAudioPlayer() {
 
   const updateProgress = seconds => {
     const safeDuration = trackDuration > 0 ? trackDuration : 1;
-    const percent = (seconds / safeDuration) * 1000;
+    const percent = Math.min(
+        1000,
+        Math.max(
+            0,
+            (seconds / safeDuration) * 1000
+        )
+    );
     progress.value = percent;
     progress.style.setProperty('--progress', `${percent / 10}%`);
     currentTimeEl.textContent = formatTime(seconds);
+  };
+
+  const resetPlayerState = () => {
+    playerReady = false;
+    pendingPlay = false;
+    trackDuration = 0;
+    progress.disabled = true;
+    toggle.disabled = true;
+    progress.value = '0';
+    progress.style.setProperty('--progress', '0%');
+    currentTimeEl.textContent = '0:00';
+    durationTimeEl.textContent = '--:--';
+    icon.textContent = '▶';
+    toggle.setAttribute('aria-pressed', 'false');
+  };
+
+  const updateTrackMetadata = () => {
+      const title = titleEl.textContent.trim();
+      const artist = artistEl.textContent.trim();
+
+      playerRoot.setAttribute(
+          'aria-label',
+          `${title} by ${artist}`
+      );
+
+      toggle.setAttribute(
+          'aria-label',
+          `Play ${title}`
+      );
   };
 
   const stopTick = () => {
@@ -356,6 +416,17 @@ function setupYoutubeAudioPlayer() {
       window.clearInterval(tickTimer);
       tickTimer = null;
     }
+  };
+
+  const destroyPlayer = () => {
+    stopTick();
+
+    if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+      ytPlayer.destroy();
+    }
+
+    ytPlayer = null;
+    resetPlayerState();
   };
 
   const startTick = () => {
@@ -370,10 +441,30 @@ function setupYoutubeAudioPlayer() {
     }, 250);
   };
 
-  loadYouTubeIframeAPI().then(() => {
-    ytPlayer = new YT.Player(host.id, {
-      height: '1',
-      width: '1',
+  const loadTrack = async () => {
+    const videoUrl = resolveVideoUrl();
+    const videoId = parseVideoId(videoUrl);
+    const token = ++loadToken;
+
+    if (!videoUrl || !videoId) {
+      destroyPlayer();
+      return;
+    }
+
+    destroyPlayer();
+    updateProgress(0);
+
+    await loadYouTubeIframeAPI();
+
+    if (token !== loadToken) {
+      return;
+    }
+
+    updateTrackMetadata();
+
+    ytPlayer = new window.YT.Player(host.id, {
+      height: '100%',
+      width: '100%',
       videoId,
       playerVars: {
         autoplay: 0,
@@ -388,10 +479,21 @@ function setupYoutubeAudioPlayer() {
       },
       events: {
         onReady: event => {
+          if (token !== loadToken) {
+            event.target.destroy();
+            return;
+          }
+
           ytPlayer = event.target;
           playerReady = true;
-          trackDuration = ytPlayer.getDuration() || 0;
-          durationTimeEl.textContent = formatTime(trackDuration);
+          trackDuration = ytPlayer.getDuration();
+          if (!trackDuration) {
+              setTimeout(() => {
+                  trackDuration = ytPlayer.getDuration() || 0;
+                  durationTimeEl.textContent = formatTime(trackDuration);
+              }, 500);
+          }
+          durationTimeEl.textContent = formatTime(trackDuration);          
           progress.disabled = false;
           toggle.disabled = false;
 
@@ -404,14 +506,14 @@ function setupYoutubeAudioPlayer() {
           if (event.data === YT.PlayerState.PLAYING) {
             icon.textContent = '❚❚';
             toggle.setAttribute('aria-pressed', 'true');
-            toggle.setAttribute('aria-label', 'Pause track');
+            toggle.setAttribute('aria-label', `Pause ${titleEl.textContent}`);
             startTick();
             return;
           }
 
           icon.textContent = '▶';
           toggle.setAttribute('aria-pressed', 'false');
-          toggle.setAttribute('aria-label', 'Play track');
+          toggle.setAttribute('aria-label', `Play ${titleEl.textContent}`);
           stopTick();
 
           if (event.data === YT.PlayerState.ENDED) {
@@ -420,6 +522,19 @@ function setupYoutubeAudioPlayer() {
         }
       }
     });
+  };
+
+  loadTrack();
+
+  const observer = new MutationObserver(mutations => {
+    if (mutations.some(mutation => mutation.attributeName === 'data-youtube-url' || mutation.attributeName === 'data-youtube-id')) {
+      loadTrack();
+    }
+  });
+
+  observer.observe(playerRoot, {
+    attributes: true,
+    attributeFilter: ['data-youtube-url', 'data-youtube-id']
   });
 
   toggle.addEventListener('click', () => {
