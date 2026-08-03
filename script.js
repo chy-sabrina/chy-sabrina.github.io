@@ -5,43 +5,48 @@ document.addEventListener('DOMContentLoaded', () => {
   setupYoutubeAudioPlayer();
   syncClassifiedLinkLabel();
 
-  const navLinks = document.querySelectorAll('nav a');
   const navbar = document.querySelector('nav');
   const sectionParam = new URLSearchParams(window.location.search).get('section');
 
-  navLinks.forEach(link => {
-    link.addEventListener('click', event => {
-      const href = link.getAttribute('href');
+  document.addEventListener('click', event => {
+    const link = event.target.closest('nav a');
 
-      if (link.classList.contains('classified-link')) {
-        event.preventDefault();
-        openClassifiedTerminal();
-        return;
-      }
+    if (!link) {
+      return;
+    }
 
-      if (!href) {
-        return;
-      }
+    const state = getAuthState();
 
-      const url = new URL(href, window.location.href);
-      const linkSection = url.searchParams.get('section');
-      const currentPath = normalizePath(window.location.pathname);
-      const linkPath = normalizePath(url.pathname);
-
-      if (!linkSection || linkPath !== currentPath) {
-        return;
-      }
-
-      const targetElement = document.getElementById(linkSection);
-
-      if (!targetElement) {
-        return;
-      }
-
+    if (link.classList.contains('classified-link')) {
       event.preventDefault();
-      scrollToSection(targetElement, navbar);
-      window.history.replaceState(null, '', window.location.pathname);
-    });
+      openClassifiedTerminal(getNotesIndexHref(state));
+      return;
+    }
+
+    const href = link.getAttribute('href');
+
+    if (!href) {
+      return;
+    }
+
+    const url = new URL(href, window.location.href);
+    const linkSection = url.searchParams.get('section');
+    const currentPath = normalizePath(window.location.pathname);
+    const linkPath = normalizePath(url.pathname);
+
+    if (!linkSection || linkPath !== currentPath) {
+      return;
+    }
+
+    const targetElement = document.getElementById(linkSection);
+
+    if (!targetElement) {
+      return;
+    }
+
+    event.preventDefault();
+    scrollToSection(targetElement, navbar);
+    window.history.replaceState(null, '', window.location.pathname);
   });
 
   if (!sectionParam) {
@@ -787,6 +792,7 @@ function syncClassifiedLinkLabel(state = getAuthState()) {
   classifiedLink.textContent = state.unlocked ? 'Notes' : '[CONFIDENTIAL]';
   classifiedLink.setAttribute('aria-label', state.unlocked ? 'Open notes page' : 'Open confidential terminal');
   classifiedLink.setAttribute('href', state.unlocked ? getNotesIndexHref(state) : '#');
+  classifiedLink.classList.toggle('classified-link', !state.unlocked);
 
   if (state.unlocked && (state.isNotesIndex || state.isNotePage)) {
     classifiedLink.setAttribute('aria-current', 'page');
