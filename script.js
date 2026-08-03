@@ -93,7 +93,7 @@ function setupThemeToggle() {
 
 function scrollToSection(targetElement, navbar) {
   const navbarHeight = navbar ? navbar.offsetHeight : 0;
-  const extraPadding = 45;
+  const extraPadding = 52;
   const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
   const offsetPosition = elementPosition - navbarHeight - extraPadding;
 
@@ -107,12 +107,202 @@ function normalizePath(path) {
   return path.replace(/\/index\.html$/, '/');
 }
 
+const AUTH_KEYS = Object.freeze({
+  unlocked: 'classifiedUnlocked',
+  previewNote: 'previewNote'
+});
+
+function getCurrentNoteSlug(path = normalizePath(window.location.pathname)) {
+  const noteMatch = path.match(/^\/notes\/([^/]+)\.html$/);
+  return noteMatch ? noteMatch[1] : '';
+}
+
+function isUnlocked() {
+  return sessionStorage.getItem(AUTH_KEYS.unlocked) === 'true';
+}
+
+function getPreviewNote() {
+  return sessionStorage.getItem(AUTH_KEYS.previewNote) || '';
+}
+
+function clearPreview() {
+  sessionStorage.removeItem(AUTH_KEYS.previewNote);
+}
+
+function grantPreview(noteSlug) {
+  if (isUnlocked()) {
+    clearPreview();
+    return;
+  }
+
+  sessionStorage.setItem(AUTH_KEYS.previewNote, noteSlug);
+}
+
+function unlockNotes() {
+  sessionStorage.setItem(AUTH_KEYS.unlocked, 'true');
+  clearPreview();
+}
+
+function getAuthState() {
+  const currentPath = normalizePath(window.location.pathname);
+  const currentNoteSlug = getCurrentNoteSlug(currentPath);
+  const unlocked = isUnlocked();
+  const previewNote = getPreviewNote();
+  const isNotesIndex = currentPath === '/notes.html';
+  const isNotePage = Boolean(currentNoteSlug);
+  const isProtectedNotePage = isNotePage && currentNoteSlug !== 'oow';
+  const isPreviewAllowed = !unlocked && isProtectedNotePage && previewNote === currentNoteSlug;
+
+  return {
+    currentPath,
+    currentNoteSlug,
+    unlocked,
+    previewNote,
+    isNotesIndex,
+    isNotePage,
+    isProtectedNotePage,
+    isPreviewAllowed
+  };
+}
+
+function getNotesIndexHref(state = getAuthState()) {
+  return state.isNotePage ? '../notes.html' : 'notes.html';
+}
+
+function getNoteHref(noteSlug) {
+  return `notes/${noteSlug}.html`;
+}
+
+function getNotesNavLink() {
+  const navbar = document.querySelector('.navbar nav');
+
+  if (!navbar) {
+    return null;
+  }
+
+  return navbar.querySelector('.classified-link') || navbar.querySelector('a[href$="notes.html"]');
+}
+
+function ensureClassifiedTerminal() {
+  let overlay = document.getElementById('classified-terminal');
+
+  if (overlay) {
+    return overlay;
+  }
+
+  document.body.insertAdjacentHTML(
+      'beforeend',
+      `
+        <div class="term-modal-overlay hidden" id="classified-terminal" role="dialog" aria-modal="true" aria-labelledby="classified-terminal-title" aria-hidden="true">
+          <div class="term-box" role="document">
+            <div class="term-header">
+              <div class="term-dots" aria-hidden="true">
+                <span class="term-dot term-dot-red"></span>
+                <span class="term-dot term-dot-yellow"></span>
+                <span class="term-dot term-dot-green"></span>
+              </div>
+              <p class="term-title" id="classified-terminal-title">/mnt/secure_storage</p>
+            </div>
+
+            <div class="term-body">
+              <p class="term-line">[SYSTEM ERROR] ACCESS DENIED. VALIDATION TOKEN REQUIRED.</p>
+
+              <label class="term-prompt" for="classified-token">
+                <span>Enter Access Token:</span>
+                <input id="classified-token" class="term-input" type="password" autocomplete="off" spellcheck="false" inputmode="text" />
+              </label>
+
+              <p class="term-hint">[!] HINT: Access token is hidden in this page. Code never lies.</p>
+              <p class="term-status" id="classified-status" aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+      `
+  );
+
+  overlay = document.getElementById('classified-terminal');
+  return overlay;
+}
+
+function renderPreviewBanner(article) {
+  if (!article || article.querySelector('.note-preview-banner')) {
+    return;
+  }
+
+  const banner = document.createElement('aside');
+  banner.className = 'note-preview-banner';
+  banner.setAttribute('role', 'note');
+  banner.innerHTML = `
+    <strong>Just a preview 👀</strong>
+    <span>This note is available directly from the project page. The rest of my Notes are still locked behind the terminal.</span>
+  `;
+
+  article.insertBefore(banner, article.firstChild);
+}
+
+function removePreviewBanner(article) {
+  const banner = article.querySelector('.note-preview-banner');
+
+  if (banner) {
+    banner.remove();
+  }
+}
+
+function applyClassifiedPageState() {
+  const state = getAuthState();
+  const notesIndexHref = getNotesIndexHref(state);
+
+  syncClassifiedLinkLabel(state);
+
+  if (state.unlocked && state.previewNote) {
+    clearPreview();
+  }
+
+  if (state.isNotesIndex) {
+    document.body.classList.toggle('notes-locked', !state.unlocked);
+
+    if (!state.unlocked) {
+      openClassifiedTerminal(notesIndexHref);
+    }
+
+    return;
+  }
+
+  document.body.classList.remove('notes-locked');
+
+  if (!state.isNotePage) {
+    return;
+  }
+
+  const article = document.querySelector('.note-page');
+
+  if (!article) {
+    return;
+  }
+
+  if (state.unlocked) {
+    removePreviewBanner(article);
+    return;
+  }
+
+  if (state.isPreviewAllowed) {
+    renderPreviewBanner(article);
+    return;
+  }
+
+  if (state.isProtectedNotePage) {
+    window.location.replace(notesIndexHref);
+    return;
+  }
+
+  removePreviewBanner(article);
+}
+
 function setupClassifiedEasterEgg() {
-  const overlay = document.getElementById('classified-terminal');
+  const overlay = ensureClassifiedTerminal();
   const input = document.getElementById('classified-token');
   const status = document.getElementById('classified-status');
-  const unlockKey = 'classifiedUnlocked';
-  const defaultRedirectUrl = './notes.html';
+  const defaultRedirectUrl = getNotesIndexHref();
 
   if (!overlay || !input || !status) {
     return;
@@ -121,7 +311,30 @@ function setupClassifiedEasterEgg() {
   document.querySelectorAll('[data-classified-open]').forEach(trigger => {
     trigger.addEventListener('click', event => {
       event.preventDefault();
-      openClassifiedTerminal(trigger.dataset.classifiedTarget || defaultRedirectUrl);
+
+      const targetUrl = trigger.dataset.classifiedTarget || defaultRedirectUrl;
+      const previewNote = trigger.dataset.classifiedPreviewNote;
+
+      if (previewNote) {
+        grantPreview(previewNote);
+        window.location.href = targetUrl;
+        return;
+      }
+
+      openClassifiedTerminal(targetUrl);
+    });
+  });
+
+  document.querySelectorAll('.back-link').forEach(link => {
+    link.addEventListener('click', event => {
+      const state = getAuthState();
+
+      if (!state.isPreviewAllowed) {
+        return;
+      }
+
+      event.preventDefault();
+      openClassifiedTerminal(getNotesIndexHref(state));
     });
   });
 
@@ -145,7 +358,7 @@ function setupClassifiedEasterEgg() {
       status.textContent = '[+] Access Granted. Redirecting...';
       status.classList.remove('is-error');
       status.classList.add('is-success');
-      sessionStorage.setItem(unlockKey, 'true');
+      unlockNotes();
       syncClassifiedLinkLabel();
       const redirectUrl = overlay.dataset.classifiedTarget || defaultRedirectUrl;
 
@@ -168,6 +381,8 @@ function setupClassifiedEasterEgg() {
       closeClassifiedTerminal();
     }
   });
+
+  applyClassifiedPageState();
 }
 
 function setupAnchorOffsetScrolling() {
@@ -222,19 +437,19 @@ function setupAnchorOffsetScrolling() {
   });
 }
 
-function openClassifiedTerminal(targetUrl = './notes.html') {
+function openClassifiedTerminal(targetUrl = getNotesIndexHref()) {
+  const defaultTargetUrl = getNotesIndexHref();
   const overlay = document.getElementById('classified-terminal');
   const input = document.getElementById('classified-token');
   const status = document.getElementById('classified-status');
-  const unlockKey = 'classifiedUnlocked';
 
   if (!overlay || !input || !status) {
     return;
   }
 
-  if (sessionStorage.getItem(unlockKey) === 'true') {
+  if (isUnlocked()) {
     syncClassifiedLinkLabel();
-    window.location.href = targetUrl;
+    window.location.href = targetUrl || defaultTargetUrl;
     return;
   }
 
@@ -562,14 +777,20 @@ function setupYoutubeAudioPlayer() {
   });
 }
 
-function syncClassifiedLinkLabel() {
-  const classifiedLink = document.querySelector('.classified-link');
+function syncClassifiedLinkLabel(state = getAuthState()) {
+  const classifiedLink = getNotesNavLink();
 
   if (!classifiedLink) {
     return;
   }
 
-  const isUnlocked = sessionStorage.getItem('classifiedUnlocked') === 'true';
-  classifiedLink.textContent = isUnlocked ? 'Notes' : '[CONFIDENTIAL]';
-  classifiedLink.setAttribute('aria-label', isUnlocked ? 'Open notes page' : 'Open confidential terminal');
+  classifiedLink.textContent = state.unlocked ? 'Notes' : '[CONFIDENTIAL]';
+  classifiedLink.setAttribute('aria-label', state.unlocked ? 'Open notes page' : 'Open confidential terminal');
+  classifiedLink.setAttribute('href', state.unlocked ? getNotesIndexHref(state) : '#');
+
+  if (state.unlocked && (state.isNotesIndex || state.isNotePage)) {
+    classifiedLink.setAttribute('aria-current', 'page');
+  } else {
+    classifiedLink.removeAttribute('aria-current');
+  }
 }
