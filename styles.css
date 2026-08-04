@@ -631,7 +631,7 @@ pre code {
 }
 
 /* ── Buttons (Keycap style) ── */
-.github-btn,
+.index-btn,
 .bts-terminal-btn {
   display: inline-flex;
   align-items: center;
@@ -654,7 +654,7 @@ pre code {
   -webkit-appearance: none;
   line-height: 1.4;
 }
-.github-btn:hover,
+.index-btn:hover,
 .bts-terminal-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--keycap-shadow-hover);
@@ -662,12 +662,12 @@ pre code {
   border-color: var(--border-hover);
   color: var(--text);
 }
-.github-btn:active,
+.index-btn:active,
 .bts-terminal-btn:active {
   transform: translateY(1px);
   box-shadow: var(--keycap-press);
 }
-.github-btn:focus-visible,
+.index-btn:focus-visible,
 .bts-terminal-btn:focus-visible {
   outline: 2px solid var(--border-strong);
   outline-offset: 2px;
