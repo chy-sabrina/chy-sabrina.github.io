@@ -103,13 +103,24 @@
         To make the game more approachable, I implemented a hint system for the medium and hard difficulties. The hints do not reveal the answer directly, but they give players enough information to continue without relying on external tools.
       </p>
 
-      <figure class="note-figure">
-        <img src="/pic/hint-system.png"
-          alt="Hint system in the game">
+      <h4>Hint System (Medium & Hard)</h4>
 
-        <figcaption>
-          The hint system for Medium and Hard mode.
-      </figure>
+      <blockquote>
+        <p><strong>Parity Hint</strong> (All difficulty levels): If the player got no correct digits in the correct position by a specific attempt (attempt 3 for level 1 and 2; attempt 5 for level 3), the game will provide a hint on the total count of even and odd digits.</p>
+
+        <p><strong>Position Hint</strong> (Level 3): If a player got at least 1 correct digit in the correct position by attempt 5, the game will confirm the position of one of the correctly guessed digits.</p>
+
+        <p><strong>Frequency Analysis</strong> (Hard mode): When a player requests a <code>HINT</code>, the system reveals the original character mapping for the <em>n</em>-th most frequent character (e.g., <code>HINT 1</code> → most frequent character; <code>HINT 2</code> → second most frequent, etc.).</p>
+
+        <p><strong>Progress Checker</strong> (Hard mode): If a specific character in the message is correctly decrypted, the character is revealed in the decrypted message. For example:</p>
+        <ul>
+          <li>Plaintext: <code>"ABC ABC"</code></li>
+          <li>Ciphertext: <code>"DEF DEF"</code></li>
+          <li>Player’s guess: <code>"ABE CDE"</code></li>
+          <li>Logic: The player correctly identified that <code>D</code> maps to <code>A</code> and <code>E</code> maps to <code>B</code>. Even though the full guess was incorrect, these two letters are revealed.</li>
+          <li>Progress shown to player: <code>"AB_ AB_"</code></li>
+        </ul>
+      </blockquote>
 
       <p>
         We also discovered a balancing issue during testing. In easy mode, the map was only 3×3, so players could simply walk straight to the exit while ignoring every puzzle and still have enough HP to survive.
