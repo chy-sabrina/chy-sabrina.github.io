@@ -109,7 +109,11 @@ function scrollToSection(targetElement, navbar) {
 }
 
 function normalizePath(path) {
-  return path.replace(/\/index\.html$/, '/');
+  if (path === '/index.html') {
+    return '/';
+  }
+
+  return path.replace(/\/index\.html$/, '/').replace(/\.html$/, '/');
 }
 
 const AUTH_KEYS = Object.freeze({
@@ -118,7 +122,7 @@ const AUTH_KEYS = Object.freeze({
 });
 
 function getCurrentNoteSlug(path = normalizePath(window.location.pathname)) {
-  const noteMatch = path.match(/^\/notes\/([^/]+)\.html$/);
+  const noteMatch = path.match(/^\/notes\/([^/]+)\/$/);
   return noteMatch ? noteMatch[1] : '';
 }
 
@@ -153,7 +157,7 @@ function getAuthState() {
   const currentNoteSlug = getCurrentNoteSlug(currentPath);
   const unlocked = isUnlocked();
   const previewNote = getPreviewNote();
-  const isNotesIndex = currentPath === '/notes.html';
+  const isNotesIndex = currentPath === '/notes/';
   const isNotePage = Boolean(currentNoteSlug);
   const isProtectedNotePage = isNotePage && currentNoteSlug !== 'oow';
   const isPreviewAllowed = !unlocked && isProtectedNotePage && previewNote === currentNoteSlug;
@@ -171,11 +175,11 @@ function getAuthState() {
 }
 
 function getNotesIndexHref(state = getAuthState()) {
-  return state.isNotePage ? '../notes.html' : 'notes.html';
+  return '/notes/';
 }
 
 function getNoteHref(noteSlug) {
-  return `notes/${noteSlug}.html`;
+  return `/notes/${noteSlug}/`;
 }
 
 function getNotesNavLink() {
@@ -185,7 +189,7 @@ function getNotesNavLink() {
     return null;
   }
 
-  return navbar.querySelector('.classified-link') || navbar.querySelector('a[href$="notes.html"]');
+  return navbar.querySelector('.classified-link') || navbar.querySelector('a[href$="/notes/"]');
 }
 
 function ensureClassifiedTerminal() {
