@@ -289,7 +289,7 @@ pre code {
 .navbar nav a[aria-current="page"] {
   color: var(--text);
   font-weight: 500;
-  background: var(--hover);
+  background: transparent;
 }
 .navbar nav a[aria-current="page"]::before {
   color: var(--accent);
