@@ -242,6 +242,17 @@ function renderPreviewBanner(article) {
     <span>This note is available directly from the project page. The rest of my Notes are still locked behind the terminal.</span>
   `;
 
+  const backToNotes = article.querySelector('.back-to-notes');
+  const projectLink = article.querySelector('.preview-project-link');
+
+  if (backToNotes) {
+    backToNotes.style.display = 'none';
+  }
+
+  if (projectLink) {
+    projectLink.style.display = '';
+  }
+
   article.insertBefore(banner, article.firstChild);
 }
 
@@ -250,6 +261,17 @@ function removePreviewBanner(article) {
 
   if (banner) {
     banner.remove();
+  }
+
+  const backToNotes = article.querySelector('.back-to-notes');
+  const projectLink = article.querySelector('.preview-project-link');
+
+  if (backToNotes) {
+    backToNotes.style.display = '';
+  }
+
+  if (projectLink) {
+    projectLink.style.display = 'none';
   }
 }
 
@@ -330,7 +352,7 @@ function setupClassifiedEasterEgg() {
     });
   });
 
-  document.querySelectorAll('.back-link').forEach(link => {
+  document.querySelectorAll('.back-to-notes').forEach(link => {
     link.addEventListener('click', event => {
       const state = getAuthState();
 
