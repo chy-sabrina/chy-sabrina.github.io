@@ -408,7 +408,6 @@ pre code {
 #about p {
   font-size: 16px;
   color: var(--text-secondary);
-  max-width: 640px;
 }
 
 #about .terminal-hero {

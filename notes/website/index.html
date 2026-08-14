@@ -52,73 +52,105 @@
       <h2>~/website</h2>
 
       <p>
-        A few notes about why this portfolio exists, how the Notes section came to be, and the little Easter egg hidden inside.
+        A few notes about the website, why I made it, and how this slightly unnecessary Notes section happened.
       </p>
 
       <h3>How it started</h3>
 
       <p>
-        The original idea was actually quite simple. I wanted somewhere to explain my projects in more detail than a CV could, while keeping everything in one place instead of scattering it across different platforms.
+        The original idea was pretty simple. I wanted somewhere to put my projects and explain them in a bit more detail than I could on a CV.
       </p>
 
       <p>
-        The first version of the website was just the portfolio page you see at
-        <a href="/">chy-sabrina.github.io</a>.
-        There was not supposed to be a <a href="/notes/">Notes</a> section at all.
+        The first version was basically just the portfolio at <a href="/">chy-sabrina.github.io</a>. There was no <a href="/notes/">Notes</a> section.
+      </p>
+
+      <p>
+        I was not planning to write one either.
       </p>
 
       <h3>Why I added Notes</h3>
 
       <p>
-        As I started writing about my projects, I realized there were many things that never made it onto the portfolio itself.
+        While working on the website, I kept ending up with things that did not really belong on the main page.
       </p>
 
       <p>
-        Small design decisions, unexpected bugs, ideas that did not work, and lessons learnt along the way were all part of the project, but they did not really belong on the main page.
-      </p>
-
-      <p>
-        That is how the Notes section came about. Instead of only showing the final result, it gives me a place to document some of the process behind it.
-      </p>
-
-      <p>
-        It is also intentionally a little less formal. Think of it as the part of the website where I can write down the things I would normally tell someone if they asked, "So... how did you actually build this?"
+        I still wanted somewhere to keep them, so I added Notes.
       </p>
 
       <h3>The hidden page</h3>
 
       <p>
-        You might have noticed that this page is not immediately accessible.
+        You might have noticed that the Notes section is not immediately accessible.
       </p>
 
       <p>
-        I wanted these notes to be discoverable, but not something every visitor would stumble upon by accident. They are a bit more personal than the main portfolio, so hiding them behind a small challenge felt more interesting than simply adding another navigation link.
-      </p>
-
-      <h3>The inspiration</h3>
-
-      <p>
-        The idea for the Easter egg actually came from my internship at AIA.
+        At first, I thought about just putting a Notes link in the navbar. But that was boring and too obvious.
       </p>
 
       <p>
-        While reading a penetration testing report, I came across a classic broken authorization vulnerability. A low-privilege user could simply change a parameter such as <code>role=guest</code> to <code>role=admin</code> and suddenly gain access to functionality they were never supposed to see.
+        I also wanted the Notes section to feel a little more personal than the rest of the portfolio, so I decided to hide it behind a small challenge instead.
+      </p>
+
+      <h3>Where the idea came from</h3>
+
+      <p>
+        The idea actually came from something I saw during my internship at AIAHK.
       </p>
 
       <p>
-        I thought it would be fun to turn that into a harmless Easter egg. My first idea was to let every visitor arrive as a "guest" and have them discover they could change their role to "admin" through Developer Tools to unlock the Notes section.
+        I was reading a penetration testing report and came across a classic broken authorization issue. A low-privilege user could change something like
+        <code>role=guest</code>
+        to
+        <code>role=admin</code>
+        and get access to things they should not have.
       </p>
 
       <p>
-        After thinking about it a bit more, I realized it was probably too obscure. Even if someone noticed the word "guest", most people would never think to edit it.
+        I thought that would make a funny little Easter egg.
       </p>
 
       <p>
-        So I explored another idea instead: hiding the Notes page completely and letting people discover it through forced browsing. That felt closer to the security theme, but it still had the same problem—it was almost impossible to find unless someone happened to browse the GitHub repository.
+        My first idea was to make everyone a "guest" and let people discover that they could change their role to "admin" through Developer Tools.
       </p>
 
       <p>
-        The current version is a compromise between the two. The Notes page is visible, but opening it requires finding the access code hidden in the page source and entering it into the fake terminal. It is not meant to be secure—quite the opposite. It is simply a small nod to the kinds of security concepts that inspired it, and a little reward for anyone curious enough to press <code>F12</code> and explore.
+        The problem was that nobody would probably think to do that, even if they see <code>role=guest</code> in the source code.
+      </p>
+
+      <p>
+        So I tried another idea: hide the Notes page completely and let people find it through forced browsing.
+      </p>
+
+      <p>
+        That was more on theme, but it also meant that almost nobody would find it unless they happened to look through the GitHub repository.
+      </p>
+
+      <h3>What I ended up with</h3>
+
+      <p>
+        The current version is somewhere in between.
+      </p>
+
+      <p>
+        The Notes section is visible, but actually opening it requires finding the access code hidden in the page source and entering it into the fake terminal.
+      </p>
+
+      <p>
+        Obviously, this is not security.
+      </p>
+
+      <p>
+        The code is sitting in the source. Anyone who really wants to get in can just press <code>F12</code>, find the access code, and enter it into the terminal.
+      </p>
+
+      <p>
+        It is just a small reference to the security concepts that inspired it, with a tiny reward for people who are curious enough to explore.
+      </p>
+
+      <p>
+        And that is how I ended up with this small Easter egg.
       </p>
 
     </article>
