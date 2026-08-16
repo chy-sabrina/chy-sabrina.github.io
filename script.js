@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupClassifiedEasterEgg();
   setupAnchorOffsetScrolling();
   setupYoutubeAudioPlayer();
+  setupDemoVideoModal();
   syncClassifiedLinkLabel();
 
   const navbar = document.querySelector('nav');
@@ -825,4 +826,85 @@ function syncClassifiedLinkLabel(state = getAuthState()) {
   } else {
     classifiedLink.removeAttribute('aria-current');
   }
+}
+
+function setupDemoVideoModal() {
+  const modal = document.getElementById('demo-video-modal');
+  const iframe = document.getElementById('demo-video-iframe');
+  const closeButton = document.querySelector('[data-demo-close]');
+  const triggers = document.querySelectorAll('[data-demo-video]');
+
+  if (!modal || !iframe || !closeButton || !triggers.length) {
+    return;
+  }
+
+  const getEmbedUrl = rawUrl => {
+    if (!rawUrl) {
+      return '';
+    }
+
+    if (rawUrl.includes('/embed/')) {
+      return rawUrl;
+    }
+
+    try {
+      const parsed = new URL(rawUrl);
+      const videoId = parsed.searchParams.get('v');
+
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1`;
+      }
+
+      if (parsed.hostname.includes('youtu.be')) {
+        const shortId = parsed.pathname.split('/').filter(Boolean)[0];
+        if (shortId) {
+          return `https://www.youtube.com/embed/${shortId}?autoplay=1&mute=1&rel=0&playsinline=1`;
+        }
+      }
+    } catch {
+      // Ignore malformed URLs and fall through to the raw source below.
+    }
+
+    return rawUrl;
+  };
+
+  const closeDemoModal = () => {
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+    iframe.src = '';
+    document.body.style.overflow = '';
+  };
+
+  const openDemoModal = rawUrl => {
+    const embedUrl = getEmbedUrl(rawUrl);
+
+    if (!embedUrl) {
+      return;
+    }
+
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    iframe.src = embedUrl;
+    document.body.style.overflow = 'hidden';
+  };
+
+  triggers.forEach(button => {
+    button.addEventListener('click', () => {
+      openDemoModal(button.dataset.demoVideo || '');
+    });
+  });
+
+  closeButton.addEventListener('click', closeDemoModal);
+
+  modal.addEventListener('click', event => {
+    if (event.target === modal) {
+      closeDemoModal();
+    }
+  });
+
+  window.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeDemoModal();
+    }
+  });
 }

@@ -191,10 +191,15 @@
           Designed the game's theme, implemented substitution cipher gameplay, developed tutorial and hint systems, and led testing and debugging.
         </p>
 
-        <button class="index-btn" type="button" data-classified-open data-classified-target="/notes/ciphermaze/" data-classified-preview-note="ciphermaze" aria-label="Open CipherMaze Build Log terminal">
-          Build Log
-        </button>
+        <div class="project-actions">
+          <button class="index-btn" type="button" data-classified-open data-classified-target="/notes/ciphermaze/" data-classified-preview-note="ciphermaze" aria-label="Open CipherMaze Build Log terminal">
+            Build Log
+          </button>
 
+          <button class="index-btn demo-button" type="button" data-demo-video="https://www.youtube.com/watch?v=vxACGCMRmCY" aria-label="View CipherMaze demo video" aria-controls="demo-video-modal">
+            View Demo
+          </button>
+        </div>
       </div>
 
       <div class="item">
@@ -221,9 +226,15 @@
           Designed risk assessment logic, refined scoring rules through extensive testing, and integrated the model into a browser extension.
         </p>
 
-        <button class="index-btn" type="button" data-classified-open data-classified-target="/notes/phishdna/" data-classified-preview-note="phishdna" aria-label="Open PhishDNA Build Log terminal">
-          Build Log
-        </button>
+        <div class="project-actions">
+          <button class="index-btn" type="button" data-classified-open data-classified-target="/notes/phishdna/" data-classified-preview-note="phishdna" aria-label="Open PhishDNA Build Log terminal">
+            Build Log
+          </button>
+
+          <button class="index-btn demo-button" type="button" data-demo-video="/assets/PhishDNA demo.MP4" aria-label="View PhishDNA demo video" aria-controls="demo-video-modal">
+            View Demo
+          </button>
+        </div>
 
       </div>
 
@@ -295,6 +306,17 @@
 
         <p class="term-hint">[!] HINT: Access code is hidden in this page. Code never lies.</p>
         <p class="term-status" id="classified-status" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-modal-overlay hidden" id="demo-video-modal" role="dialog" aria-modal="true" aria-labelledby="demo-video-title" aria-hidden="true">
+    <div class="demo-modal-window" role="document">
+      <button class="demo-close-button" type="button" aria-label="Close demo video" data-demo-close>
+        ×
+      </button>
+      <div class="demo-video-shell">
+        <iframe id="demo-video-iframe" title="Project demo video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </div>
