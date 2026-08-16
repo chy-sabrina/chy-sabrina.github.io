@@ -831,10 +831,12 @@ function syncClassifiedLinkLabel(state = getAuthState()) {
 function setupDemoVideoModal() {
   const modal = document.getElementById('demo-video-modal');
   const iframe = document.getElementById('demo-video-iframe');
+  const video = document.getElementById('demo-video-player');
+  const videoSource = document.getElementById('demo-video-source');
   const closeButton = document.querySelector('[data-demo-close]');
   const triggers = document.querySelectorAll('[data-demo-video]');
 
-  if (!modal || !iframe || !closeButton || !triggers.length) {
+  if (!modal || !iframe || !video || !videoSource || !closeButton || !triggers.length) {
     return;
   }
 
@@ -865,26 +867,72 @@ function setupDemoVideoModal() {
       // Ignore malformed URLs and fall through to the raw source below.
     }
 
-    return rawUrl;
+    return '';
+  };
+
+  const isVideoFileUrl = rawUrl => {
+    if (!rawUrl) {
+      return false;
+    }
+
+    try {
+      const parsed = new URL(rawUrl, window.location.href);
+      return /\.(mp4|webm|ogg)$/i.test(parsed.pathname);
+    } catch {
+      return /\.(mp4|webm|ogg)(\?.*)?$/i.test(rawUrl);
+    }
+  };
+
+  const showIframePlayer = embedUrl => {
+    video.pause();
+    video.removeAttribute('src');
+    videoSource.src = '';
+    video.load();
+    video.classList.add('hidden');
+
+    iframe.classList.remove('hidden');
+    iframe.src = embedUrl;
+  };
+
+  const showVideoPlayer = videoUrl => {
+    iframe.src = '';
+    iframe.classList.add('hidden');
+
+    videoSource.src = videoUrl;
+    video.load();
+    video.classList.remove('hidden');
   };
 
   const closeDemoModal = () => {
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
     iframe.src = '';
+    iframe.classList.remove('hidden');
+    video.pause();
+    video.removeAttribute('src');
+    videoSource.src = '';
+    video.load();
+    video.classList.add('hidden');
     document.body.style.overflow = '';
   };
 
   const openDemoModal = rawUrl => {
     const embedUrl = getEmbedUrl(rawUrl);
+    const videoUrl = isVideoFileUrl(rawUrl) ? new URL(rawUrl, window.location.href).href : '';
 
-    if (!embedUrl) {
+    if (!embedUrl && !videoUrl) {
       return;
     }
 
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
-    iframe.src = embedUrl;
+
+    if (embedUrl) {
+      showIframePlayer(embedUrl);
+    } else {
+      showVideoPlayer(videoUrl);
+    }
+
     document.body.style.overflow = 'hidden';
   };
 

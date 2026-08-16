@@ -744,7 +744,8 @@ pre code {
   background: #000;
 }
 
-.demo-video-shell iframe {
+.demo-video-shell iframe,
+.demo-video-shell video {
   display: block;
   width: 100%;
   height: 100%;
