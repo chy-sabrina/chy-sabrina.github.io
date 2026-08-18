@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[thoughts] system prompt | Notes</title>
+
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/styles.css?v=20260710-theme">
+  <script src="/script.js?v=20260710-theme" defer></script>
+</head>
+
+<body>
+
+  <header class="navbar">
+
+    <div class="nav-name">
+      <a href="/" class="nav-brand">
+        <img class="nav-avatar" src="https://avatars.githubusercontent.com/u/216642597?v=4" alt="" width="40" height="40">
+        <span>Sabrina Cheung</span>
+      </a>
+    </div>
+
+    <nav>
+      <a href="/?section=about">About</a>
+      <a href="/?section=education">Education</a>
+      <a href="/?section=skills">Skills</a>
+      <a href="/?section=experience">Experience</a>
+      <a href="/?section=projects">Projects</a>
+      <a href="/?section=contact">Contact</a>
+      <a href="/notes/" aria-current="page">Notes</a>
+    </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
+
+  </header>
+
+  <main class="container">
+
+    <article class="section note-page">
+
+      <a class="back-link" href="/notes/">Back to Notes</a>
+
+      <h2>[thoughts] system prompt</h2>
+
+      <blockquote>
+        <p>
+          <strong>Quick disclaimer:</strong> Notes tagged with <code>[thoughts]</code> are just my personal take.
+          They are not meant to be perfectly written, or necessarily correct. I may have misunderstood something.
+        </p>
+      </blockquote>
+
+      <h3>Why I started thinking about this</h3>
+
+      <p>
+        I have been working on system prompt-related stuff quite a bit this month.
+        I also got to look through the system prompts of three real chatbot projects.
+      </p>
+
+      <p>
+        That was the first time I had enough real examples to compare with what I had always imagined a system prompt would look like.
+      </p>
+
+      <h3>What I thought a system prompt was</h3>
+
+      <p>
+        Before my internship, I had a pretty clear picture in my head.
+      </p>
+
+      <p>
+        I thought a system prompt would be one big block of text that tells the chatbot basically everything:
+        what it is, what it should do, what it should not do, how it should respond, and all the security rules.
+      </p>
+
+      <p>
+        Basically:
+      </p>
+
+      <ul>
+        <li>long</li>
+        <li>detailed</li>
+        <li>very structured</li>
+        <li>full of rules</li>
+        <li>probably a little terrifying to read</li>
+      </ul>
+
+      <p>
+        I think part of this came from reading leaked system prompts.
+        They are often shown as one huge block containing the model's identity, instructions, restrictions, formatting rules, and everything else.
+      </p>
+
+      <h3>What I saw in real projects</h3>
+
+      <p>
+        Real projects were not really like that.
+      </p>
+
+      <p>
+        The biggest difference was that there was not just one giant prompt doing everything.
+      </p>
+
+      <p>
+        The application looked more like this:
+      </p>
+
+      <div class="terminal-note">
+
+        <p><code>> pipeline</code></p>
+
+        <p>
+          User<br>
+          ↓<br>
+          PII scrubber<br>
+          ↓<br>
+          Input filter<br>
+          ↓<br>
+          RAG<br>
+          ↓<br>
+          LLM<br>
+          ↓<br>
+          Output filter<br>
+          ↓<br>
+          PII scrubber / truth checker<br>
+          ↓<br>
+          Output
+        </p>
+
+      </div>
+
+      <p>
+        And some of those components have their own prompts too.
+      </p>
+
+      <p>
+        So instead of thinking about "the system prompt" as one thing, I started thinking about a bunch of smaller prompts sitting in different parts of the application.
+      </p>
+
+      <h3>There was business logic in there too</h3>
+
+      <p>
+        Another thing that surprised me was seeing business logic inside the system prompt.
+      </p>
+
+      <p>
+        For example, a prompt might tell the model to classify a user's request into different categories and then send them to a different chatbot or workflow.
+      </p>
+
+      <p>
+        I did not expect that.
+      </p>
+
+      <p>
+        I always thought of a system prompt as something that mainly tells the model how to behave.
+        I did not really think of it as part of the application's decision-making logic.
+      </p>
+
+      <p>
+        It also made me wonder whether some of this logic should be somewhere else.
+        If something is important business logic, relying on the model to interpret it correctly feels a little strange.
+      </p>
+
+      <h3>So where is the security stuff?</h3>
+
+      <p>
+        This was probably the part that surprised me the most.
+      </p>
+
+      <p>
+        The system prompts I saw did not always contain that much security-related stuff.
+      </p>
+
+      <p>
+        Things I expected to see in the prompt, like content filtering, jailbreak prevention, or indirect prompt injection protection, were often handled by guardrails instead.
+      </p>
+
+      <p>
+        There was also normal code around the LLM doing things that I would rather not leave to the model.
+      </p>
+
+      <p>
+        For example, scripts can sanitize input and output, such as converting SQL commands or HTML tags into plain text.
+      </p>
+
+      <p>
+        That made sense to me.
+        If something can be checked deterministically with code, why ask an LLM to do it?
+      </p>
+
+      <h3>So what is the system prompt actually for?</h3>
+
+      <p>
+        From the projects I looked at, my current guess is that the system prompt is mostly there to give the model its role and tell it what it is supposed to do.
+      </p>
+
+      <p>
+        Things like:
+      </p>
+
+      <ul>
+        <li>what the chatbot is</li>
+        <li>what its job is</li>
+        <li>how it should respond</li>
+        <li>what format to use</li>
+        <li>some general rules it should follow</li>
+      </ul>
+
+      <p>
+        There can still be security-related instructions in there.
+        For example, don't disclose internal information or don't reveal certain data.
+      </p>
+
+      <p>
+        But from what I saw, the system prompt did not seem to be the main security layer.
+      </p>
+
+      <h3>Which made me wonder...</h3>
+
+      <p>
+        <strong>How important is the system prompt actually from a security perspective?</strong>
+      </p>
+
+      <p>
+        Before this, I probably would have said it was extremely important.
+        It is the model's highest-level instruction, so it feels like it should be one of the main security controls.
+      </p>
+
+      <p>
+        After looking at actual applications, I am less sure.
+      </p>
+
+      <p>
+        The security seems to come from the whole setup around the model:
+        input filtering, output filtering, guardrails, PII protection, validation, RAG controls, and normal code.
+      </p>
+
+      <p>
+        The system prompt is still important because it controls a lot of the model's behavior.
+        I just don't think it should be treated as the security boundary by itself.
+      </p>
+
+      <h3>My current thought</h3>
+
+      <p>
+        I am probably still figuring this out.
+      </p>
+
+      <p>
+        Before my internship, I mostly thought of a system prompt as one giant piece of text.
+        Now I think of it as one part of a much bigger system.
+      </p>
+
+      <p>
+        And maybe that is the more useful way to look at it:
+        the system prompt matters, but it should not have to do everything.
+      </p>
+
+    </article>
+
+  </main>
+
+</body>
+
+</html>
