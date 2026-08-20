@@ -136,11 +136,21 @@
       </div>
 
       <p>
-        And some of those components have their own prompts too.
+        And some of those components (e.g., input filter, output filter and truth checker) are also LLM, and have their own prompts too.
       </p>
-
+      
+      <blockquote>
+        <p>For example, the system prompt of the truth checker is something like "Evaluate the alignment between the provided answer and the retrieval context in response. If the answer is entirely based on the provided **Retrieval Context**, return ""true""; otherwise, return ""false"". <br>
+          ... <br>
+          The task is to determine whether the information within the retrieval context adequately supports the provided answer. <br>
+          ... <br>
+          # Output Format <br>
+          Output should be a single word—either "true" or "false", reflecting whether the answer is supported by the retrieval context or not."
+        </p>
+      </blockquote>
+      
       <p>
-        So instead of thinking about "the system prompt" as one thing, I started thinking about a bunch of smaller prompts sitting in different parts of the application.
+        So instead of thinking about "system prompt" as one thing, I started thinking about a bunch of smaller prompts sitting in different parts of the application.
       </p>
 
       <h3>There was business logic in there too</h3>
@@ -158,8 +168,7 @@
       </p>
 
       <p>
-        I always thought of a system prompt as something that mainly tells the model how to behave.
-        I did not really think of it as part of the application's decision-making logic.
+        I always thought of a system prompt as something that mainly tells the model how to behave. I did not really think of it as part of the application's decision-making logic.
       </p>
 
       <p>
@@ -170,7 +179,7 @@
       <h3>So where is the security stuff?</h3>
 
       <p>
-        This was probably the part that surprised me the most.
+        This was the part that surprised me the most.
       </p>
 
       <p>
@@ -182,11 +191,7 @@
       </p>
 
       <p>
-        There was also normal code around the LLM doing things that I would rather not leave to the model.
-      </p>
-
-      <p>
-        For example, scripts can sanitize input and output, such as converting SQL commands or HTML tags into plain text.
+        There was also normal code around the LLM doing input and output sanitization, such as converting SQL commands or HTML tags into plain text.
       </p>
 
       <p>
@@ -213,12 +218,12 @@
       </ul>
 
       <p>
-        There can still be security-related instructions in there.
-        For example, don't disclose internal information or don't reveal certain data.
+        There are still some security-related instructions in there.
+        For example, don't disclose internal information or don't reveal certain internal data.
       </p>
 
       <p>
-        But from what I saw, the system prompt did not seem to be the main security layer.
+        But from what I saw, they are also implemented using guardrail. The system prompt did not seem to be the main security layer.
       </p>
 
       <h3>Which made me wonder...</h3>
@@ -237,13 +242,11 @@
       </p>
 
       <p>
-        The security seems to come from the whole setup around the model:
-        input filtering, output filtering, guardrails, PII protection, validation, RAG controls, and normal code.
+        The security seems to come from the whole setup around the model: input filtering, output filtering, guardrails, PII scrubber, validation, RAG controls, and scripts.
       </p>
 
       <p>
-        The system prompt is still important because it controls a lot of the model's behavior.
-        I just don't think it should be treated as the security boundary by itself.
+        The system prompt is still important because it controls a lot of the model's behavior. I just don't think it should be treated as the security boundary by itself.
       </p>
 
       <h3>My current thought</h3>
@@ -253,13 +256,11 @@
       </p>
 
       <p>
-        Before my internship, I mostly thought of a system prompt as one giant piece of text.
-        Now I think of it as one part of a much bigger system.
+        Before my internship, I mostly thought of a system prompt as one giant piece of text. Now I think of it as one part of a much bigger system.
       </p>
 
       <p>
-        And maybe that is the more useful way to look at it:
-        the system prompt matters, but it should not have to do everything.
+        And maybe that is the more useful way to look at it: the system prompt matters, but it should not have to do everything.
       </p>
 
     </article>
