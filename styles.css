@@ -1104,6 +1104,44 @@ body.notes-locked .container {
   opacity: 0.4;
 }
 
+.audio-fallback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.audio-fallback-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px 5px;
+  color: var(--text-secondary);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--keycap-shadow);
+  font: 450 11px/1.4 var(--mono);
+  text-decoration: none;
+  transition: transform 0.1s ease, box-shadow 0.15s ease,
+    background var(--transition), border-color var(--transition);
+}
+
+.audio-fallback-link:hover {
+  color: var(--text);
+  background: var(--hover);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--keycap-shadow-hover);
+}
+
+.audio-fallback-link:active {
+  transform: translateY(1px);
+  box-shadow: var(--keycap-press);
+}
+
 /* Terminal note blocks */
 
 .terminal-note {
