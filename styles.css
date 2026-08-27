@@ -952,11 +952,6 @@ body.notes-locked .container {
   transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
-.audio-player:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--keycap-shadow-hover);
-}
-
 .audio-youtube-host {
   position: absolute;
   width: 0;
