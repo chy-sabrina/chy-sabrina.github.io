@@ -827,12 +827,62 @@ body.notes-locked .container {
   font: 14px var(--mono);
   outline: 0;
   caret-color: #8bff9a;
-  color-scheme: dark;
   transition: border-color var(--transition);
 }
 
-.term-input::-ms-reveal {
-  filter: brightness(0) saturate(100%) invert(76%) sepia(42%) saturate(584%) hue-rotate(79deg) brightness(104%) contrast(92%);
+.password-input-wrapper {
+  position: relative;
+  display: block;
+}
+
+.password-input-wrapper .term-input {
+  padding-right: 44px;
+}
+
+.password-reveal {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: #ffffff;
+  background: transparent;
+  border: 0;
+  font: 14px/1 var(--mono);
+  cursor: pointer;
+  transform: translateY(-50%);
+  opacity: 0.8;
+}
+
+.password-reveal:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.password-reveal .eye-icon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.password-reveal .eye-open {
+  display: none;
+}
+
+.password-reveal.is-visible .eye-closed {
+  display: none;
+}
+
+.password-reveal.is-visible .eye-open {
+  display: block;
 }
 
 .term-input:focus {

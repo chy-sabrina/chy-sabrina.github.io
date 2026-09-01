@@ -335,6 +335,35 @@ function setupClassifiedEasterEgg() {
   const input = document.getElementById('classified-token');
   const status = document.getElementById('classified-status');
   const defaultRedirectUrl = getNotesIndexHref();
+  const revealButton = overlay.querySelector('.password-reveal');
+
+  if (revealButton) {
+    revealButton.addEventListener('mousedown', event => {
+      event.preventDefault();
+    });
+
+    revealButton.addEventListener('click', () => {
+      const start = input.selectionStart ?? input.value.length;
+      const end = input.selectionEnd ?? start;
+      const direction = input.selectionDirection ?? 'none';
+      const isPassword = input.type === 'password';
+
+      input.type = isPassword ? 'text' : 'password';
+
+      revealButton.classList.toggle('is-visible', isPassword);
+      revealButton.setAttribute(
+        'aria-label',
+        isPassword ? 'Hide access code' : 'Show access code'
+      );
+      revealButton.setAttribute('aria-pressed', String(isPassword));
+
+      // Restore focus + caret after the browser finishes changing input.type
+      requestAnimationFrame(() => {
+        input.focus({ preventScroll: true });
+        input.setSelectionRange(start, end, direction);
+      });
+    });
+  }
 
   if (!overlay || !input || !status) {
     return;
