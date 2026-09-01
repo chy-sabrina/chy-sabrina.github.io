@@ -827,7 +827,12 @@ body.notes-locked .container {
   font: 14px var(--mono);
   outline: 0;
   caret-color: #8bff9a;
+  color-scheme: dark;
   transition: border-color var(--transition);
+}
+
+.term-input::-ms-reveal {
+  filter: brightness(0) saturate(100%) invert(76%) sepia(42%) saturate(584%) hue-rotate(79deg) brightness(104%) contrast(92%);
 }
 
 .term-input:focus {
