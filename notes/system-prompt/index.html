@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[thoughts] system prompt | Notes</title>
+  <title>[thoughts] system-prompt | Notes</title>
 
   <script>
     (() => {
@@ -14,8 +14,8 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260710-theme">
-  <script src="/script.js?v=20260710-theme" defer></script>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
       <a href="/notes/" aria-current="page">Notes</a>
     </nav>
 
-    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
+    <button class="theme-toggle" type="button" aria-label="Switch color scheme" aria-pressed="false" title="Switch color scheme">◐</button>
 
   </header>
 
@@ -138,18 +138,12 @@
       <p>
         And some of those components (e.g., input filter, output filter and truth checker) are also LLM, and have their own prompts too.
       </p>
-      
-      <blockquote>
-        <p>For example, the system prompt of the truth checker is something like: <br>
-          Evaluate the alignment between the provided answer and the retrieval context in response. If the answer is entirely based on the provided **Retrieval Context**, return "true"; otherwise, return "false". <br>
-          ... <br>
-          The task is to determine whether the information within the retrieval context adequately supports the provided answer. <br>
-          ... <br>
-          # Output Format <br>
-          Output should be a single word—either "true" or "false", reflecting whether the answer is supported by the retrieval context or not.
-        </p>
-      </blockquote>
-      
+
+      <p>
+        For example, the truth checker had a prompt that basically asked the model to compare an answer against the retrieval context,
+        decide whether the answer was actually supported, and return only <code>true</code> or <code>false</code>.
+      </p>
+
       <p>
         So instead of thinking about "system prompt" as one thing, I started thinking about a bunch of smaller prompts sitting in different parts of the application.
       </p>
@@ -224,7 +218,7 @@
       </p>
 
       <p>
-        But from what I saw, they are also implemented using guardrail. The system prompt did not seem to be the main security layer.
+        But from what I saw, they are also implemented using guardrails. The system prompt did not seem to be the main security layer.
       </p>
 
       <h3>Which made me wonder...</h3>
@@ -261,7 +255,13 @@
       </p>
 
       <p>
-        And maybe that is the more useful way to look at it: the system prompt matters, but it should not have to do everything.
+        For things like model behavior, context, and response format, a system prompt makes sense.
+        For things that need deterministic enforcement, it makes more sense to handle them elsewhere in the application.
+      </p>
+
+      <p>
+        I am still figuring out where that line should be.
+        But at least I no longer think the answer is "put everything in the system prompt."
       </p>
 
     </article>
@@ -269,5 +269,4 @@
   </main>
 
 </body>
-
 </html>

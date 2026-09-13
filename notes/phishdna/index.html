@@ -14,8 +14,8 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260710-theme">
-  <script src="/script.js?v=20260710-theme" defer></script>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
 </head>
 
 <body>
@@ -39,21 +39,21 @@
       <a href="/notes/" aria-current="page">Notes</a>
     </nav>
 
-    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
+    <button class="theme-toggle" type="button" aria-label="Switch color scheme" aria-pressed="false" title="Switch color scheme">◐</button>
 
   </header>
 
   <main class="container">
 
     <article class="section note-page">
-      
+
       <a class="back-link back-to-notes" href="/notes/">Back to Notes</a>
       <a class="back-link preview-project-link" href="/#PhishDNA" hidden>Back to PhishDNA</a>
 
       <h2>[build] phishdna</h2>
 
       <p>
-        Some notes from building <a href="/#PhishDNA">PhishDNA</a>
+        Some notes from building <a href="/#PhishDNA">PhishDNA</a>.
       </p>
 
       <h3>Background</h3>
@@ -115,19 +115,31 @@
         <li>Government websites</li>
       </ul>
 
-      <p>Some of them were classified as phishing.</p>
+      <p>
+        Some of them were classified as phishing.
+      </p>
 
-      <p>That is when I realized something I had not expected.</p>
+      <p>
+        That is when I realized something I had not expected.
+      </p>
 
-      <p>A model can perform really well on a test dataset and still perform terribly in the real world.</p>
+      <p>
+        A model can perform really well on a test dataset and still perform terribly in the real world.
+      </p>
 
-      <p>That was probably the biggest surprise of the entire project.</p>
+      <p>
+        That was probably the biggest surprise of the entire project.
+      </p>
 
       <h3>I spent a week fixing the wrong thing</h3>
 
-      <p>My first reaction was to assume the model needed more tuning.</p>
+      <p>
+        My first reaction was to assume the model needed more tuning.
+      </p>
 
-      <p>So I started changing everything.</p>
+      <p>
+        So I started changing everything.
+      </p>
 
       <ul>
         <li>I adjusted the scoring logic.</li>
@@ -136,49 +148,83 @@
         <li>I kept retraining the model, hoping the false positives would disappear.</li>
       </ul>
 
-      <p>They did not.</p>
+      <p>
+        They did not.
+      </p>
 
-      <p>It took me a while to realize I was solving the wrong problem.</p>
+      <p>
+        It took me a while to realize I was solving the wrong problem.
+      </p>
 
       <h3>The dataset was cheating</h3>
 
-      <p>Eventually, I stopped looking at the model and started looking at the data.</p>
+      <p>
+        Eventually, I stopped looking at the model and started looking at the data.
+      </p>
 
-      <p>That is when everything suddenly made sense.</p>
+      <p>
+        That is when everything suddenly made sense.
+      </p>
 
-      <p>The legitimate URLs in my dataset were mostly simple domain names like:</p>
+      <p>
+        The legitimate URLs in my dataset were mostly simple domain names like:
+      </p>
 
       <pre><code>google.com<br/>apple.com<br/>github.com</code></pre>
 
-      <p>Meanwhile, almost every phishing sample was an extremely long URL full of random-looking strings.</p>
+      <p>
+        Meanwhile, almost every phishing sample was an extremely long URL full of random-looking strings.
+      </p>
 
-      <p>The model was not really learning phishing patterns.</p>
+      <p>
+        The model was not really learning phishing patterns.
+      </p>
 
-      <p>It had simply learned that long URLs usually meant phishing.</p>
+      <p>
+        It had simply learned that long URLs usually meant phishing.
+      </p>
 
-      <p>Technically, the model achieved high accuracy.</p>
+      <p>
+        Technically, the model achieved high accuracy.
+      </p>
 
-      <p>In reality, it had found a shortcut.</p>
+      <p>
+        In reality, it had found a shortcut.
+      </p>
 
-      <p>I remember opening the feature importance graph and seeing URL length taking up most of the importance score. That was the moment I realized something was not right.</p>
+      <p>
+        I remember opening the feature importance graph and seeing URL length taking up most of the importance score. That was the moment I realized something was not right.
+      </p>
 
-      <p>Replacing the dataset probably improved the project more than all the tuning I had done before.</p>
+      <p>
+        Replacing the dataset probably improved the project more than all the tuning I had done before.
+      </p>
 
-      <p>I ended up rebuilding the training pipeline using much larger public datasets, including the Global Phishing Database, the Tranco Top Sites list, and a Hong Kong-specific dataset containing legitimate government, banking, and education domains.</p>
+      <p>
+        I ended up rebuilding the training pipeline using much larger public datasets, including the Global Phishing Database, the Tranco Top Sites list, and a Hong Kong-specific dataset containing legitimate government, banking, and education domains.
+      </p>
 
       <h3>Teaching the model what humans notice</h3>
 
-      <p>Once the dataset became more balanced, I started thinking about something else.</p>
+      <p>
+        Once the dataset became more balanced, I started thinking about something else.
+      </p>
 
-      <p>There are URLs that most people would immediately find suspicious.</p>
+      <p>
+        There are URLs that most people would immediately find suspicious.
+      </p>
 
       <p>For example:</p>
 
       <pre><code>whatsd-app.com<br/>paypa1.com<br/>apple-security-check.top</code></pre>
 
-      <p>A machine learning model does not naturally understand why those look suspicious.</p>
+      <p>
+        A machine learning model does not naturally understand why those look suspicious.
+      </p>
 
-      <p>So I started adding features that capture things humans notice almost instinctively.</p>
+      <p>
+        So I started adding features that capture things humans notice almost instinctively.
+      </p>
 
       <ul>
         <li>Does it look like a typo of an existing website?</li>
@@ -186,43 +232,73 @@
         <li>Does it contain a long string of random-looking characters?</li>
       </ul>
 
-      <p>Instead of relying on one feature, the model gradually learned to combine many small signals together.</p>
+      <p>
+        Instead of relying on one feature, the model gradually learned to combine many small signals together.
+      </p>
 
-      <p>That made the predictions much more reliable than simply checking whether a URL was long.</p>
+      <p>
+        That made the predictions much more reliable than simply checking whether a URL was long.
+      </p>
 
       <h3>Building the extension</h3>
 
-      <p>Once I was happy with the model, I started working on the Chrome extension.</p>
+      <p>
+        Once I was happy with the model, I started working on the Chrome extension.
+      </p>
 
-      <p>The extension reads the current URL, sends it to a FastAPI backend, receives the prediction, and displays the phishing risk score together with an explanation.</p>
+      <p>
+        The extension reads the current URL, sends it to a FastAPI backend, receives the prediction, and displays the phishing risk score together with an explanation.
+      </p>
 
-      <p>Most of the implementation went quite smoothly, but I ran into one bug that confused me for a while.</p>
+      <p>
+        Most of the implementation went quite smoothly, but I ran into one bug that confused me for a while.
+      </p>
 
-      <p>The extension sometimes produced different results from the Python version.</p>
+      <p>
+        The extension sometimes produced different results from the Python version. The same URL could receive two different risk scores.
+      </p>
 
-      <p>The same URL could receive two different risk scores.</p>
+      <p>
+        After a few hours of debugging, I realized the extension was not applying my hard override rules.
+      </p>
 
-      <p>After a few hours of debugging, I realized the extension was not applying my hard override rules.</p>
+      <p>
+        For example, trusted government domains should always receive a risk score of zero, but the extension was still sending them through the normal scoring pipeline.
+      </p>
 
-      <p>For example, trusted government domains should always receive a risk score of zero, but the extension was still sending them through the normal scoring pipeline.</p>
-
-      <p>Once I fixed that, both versions finally produced the same results.</p>
+      <p>
+        Once I fixed that, both versions finally produced the same results.
+      </p>
 
       <h3>Looking back</h3>
 
-      <p>Before this project, I thought the hardest part of machine learning would be choosing the right model.</p>
+      <p>
+        Before this project, I thought the hardest part of machine learning would be choosing the right model.
+      </p>
 
-      <p>Now I think that is probably one of the easier parts.</p>
+      <p>
+        Now I think that is probably one of the easier parts.
+      </p>
 
-      <p>Most of my time was spent understanding the data, figuring out why the model behaved strangely, and checking whether the results actually made sense.</p>
+      <p>
+        Most of my time was spent understanding the data, figuring out why the model behaved strangely, and checking whether the results actually made sense.
+      </p>
 
-      <p>Another thing I learned is that evaluation metrics do not tell the whole story. A model with high accuracy is not necessarily useful if it fails on real websites.</p>
+      <p>
+        Another thing I learned is that evaluation metrics do not tell the whole story. A model with high accuracy is not necessarily useful if it fails on real websites.
+      </p>
 
-      <p>Finally, I realized that machine learning alone is not enough for phishing detection.</p>
+      <p>
+        Finally, I realized that machine learning alone is not enough for phishing detection.
+      </p>
 
-      <p>The final version of PhishDNA combines machine learning with rule-based checks because some phishing techniques are much easier to describe with explicit rules than expecting the model to learn everything from data.</p>
+      <p>
+        The final version of PhishDNA combines machine learning with rule-based checks because some phishing techniques are much easier to describe with explicit rules than expecting the model to learn everything from data.
+      </p>
 
-      <p>If I were to rebuild PhishDNA today, I would probably spend less time tuning the algorithm and more time understanding the dataset first.</p>
+      <p>
+        If I were to rebuild PhishDNA today, I would probably spend less time tuning the algorithm and more time understanding the dataset first.
+      </p>
 
     </article>
 

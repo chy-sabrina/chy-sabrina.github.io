@@ -14,8 +14,8 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260710-theme">
-  <script src="/script.js?v=20260710-theme" defer></script>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
       <a href="/notes/" aria-current="page">Notes</a>
     </nav>
 
-    <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">Dark</button>
+    <button class="theme-toggle" type="button" aria-label="Switch color scheme" aria-pressed="false" title="Switch color scheme">◐</button>
 
   </header>
 
@@ -59,7 +59,7 @@
       <h3>Background</h3>
 
       <p>
-        Cipher Maze was the group project for COMP2113. It was to design and build a text-based mini game using C++.
+        Cipher Maze was the group project for COMP2113. The task was to design and build a text-based mini game using C++.
       </p>
 
       <h3>Why cryptography game?</h3>
@@ -89,18 +89,36 @@
         I suggested making cryptography the main theme of our game, while another teammate proposed a fog-of-war exploration mechanic. We eventually combined both ideas into what became Cipher Maze.
       </p>
 
-      <h3>Building the game</h3>
+      <h3>Designing the gameplay</h3>
+
+      <p>
+        We split the map into two main types of rooms: chest rooms and enemy rooms.
+      </p>
+
+      <p>
+        Chest rooms contain cipher puzzles. Solving a puzzle gives the player a weapon, which can then be used in enemy rooms. This creates a simple relationship between the two mechanics: solving puzzles gives the player resources, while exploration determines how those resources are used.
+      </p>
+
+      <p>
+        The fog-of-war mechanic was also important because it made the map itself part of the challenge. Players had to explore without immediately knowing where the exit, puzzles, or enemies were.
+      </p>
+
+      <p>
+        The game uses Caesar, numeric, and substitution ciphers across different difficulties. This let us make the puzzles progressively less straightforward instead of simply increasing the number of questions.
+      </p>
+
+      <h3>Building the hint system</h3>
 
       <p>
         One feature that was not part of the original plan was the hint system.
       </p>
 
       <p>
-        During testing, I realized the numeric and substitution cipher puzzles were much more difficult than I had expected. Even I built the substitution cipher part of the game, solving it was not easy. That made me think players would probably have an even harder time.
+        During testing, I realized the numeric and substitution cipher puzzles were much more difficult than I had expected. Even though I built the substitution cipher part of the game, solving it was not easy. That made me think players would probably have an even harder time.
       </p>
 
       <p>
-        To make the game more approachable, I implemented a hint system for the medium and hard difficulties. The hints do not reveal the answer directly, but they give players enough information to continue without relying on external tools.
+        Instead of making the puzzles easier, I wanted the game to keep the original challenge while giving players a way to make progress when they got stuck. I implemented a hint system for the medium and hard difficulties. The hints reveal partial information rather than directly giving the answer.
       </p>
 
       <h4>Hint System (Medium & Hard)</h4>
@@ -122,12 +140,40 @@
         </ul>
       </blockquote>
 
+      <h3>Testing and balancing</h3>
+
       <p>
-        We also discovered a balancing issue during testing. In easy mode, the map was only 3×3, so players could simply walk straight to the exit while ignoring every puzzle and still have enough HP to survive.
+        Testing changed more than just the difficulty of the puzzles.
+      </p>
+
+      <p>
+        We discovered a balancing issue in easy mode. The map was only 3×3, so players could simply walk straight to the exit while ignoring every puzzle and still have enough HP to survive.
+      </p>
+
+      <p>
+        That meant the game's two main ideas — exploration and cryptography — were not actually connected. The player could technically finish the game without interacting with the puzzles at all.
       </p>
 
       <p>
         After discussing it, we adjusted the damage calculation so players would need to solve at least one puzzle before reaching the end room. It was a small change, but it made the puzzles feel like an essential part of the game instead of something that could be skipped entirely.
+      </p>
+
+      <p>
+        We also tested edge cases around puzzle inputs, incorrect guesses, hint requests, room transitions, and combat states. A lot of the final polishing came from finding situations where the game technically worked, but did not behave in the way a player would naturally expect.
+      </p>
+
+      <h3>What I learned</h3>
+
+      <p>
+        The biggest thing I took away from this project was that implementing a feature and designing a good feature are two different problems.
+      </p>
+
+      <p>
+        The substitution cipher itself was not the hardest part. The harder part was figuring out how much information to give the player, how to keep the puzzle challenging, and how to make the puzzle actually matter to the rest of the game.
+      </p>
+
+      <p>
+        I also learned that testing is not just about finding bugs. It can reveal problems with the design itself. In our case, the easy-mode map was working exactly as we had programmed it — it was just not producing the gameplay we intended.
       </p>
 
     </article>
@@ -135,5 +181,4 @@
   </main>
 
 </body>
-
 </html>
