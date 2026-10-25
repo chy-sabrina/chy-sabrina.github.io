@@ -597,13 +597,18 @@ pre code {
 
 .note-figure {
   margin: 24px 0;
+  text-align: center;
+}
+
+.note-figure img {
+  display: block;
+  margin: 0 auto;
 }
 
 .note-figure figcaption {
   margin-top: 8px;
   color: var(--muted);
   font: 13px var(--mono);
-  text-align: center;
 }
 
 .note-preview-banner {
