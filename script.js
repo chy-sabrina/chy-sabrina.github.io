@@ -222,7 +222,7 @@ function ensureClassifiedTerminal() {
                 <input id="classified-token" class="term-input" type="password" autocomplete="off" spellcheck="false" inputmode="text" />
               </label>
 
-              <p class="term-hint">[!] HINT: Access token is hidden in this page. Code never lies.</p>
+              <p class="term-hint">[!] HINT: Back to the beginning. Code never lies.</p>
               <p class="term-status" id="classified-status" aria-live="polite"></p>
             </div>
           </div>
