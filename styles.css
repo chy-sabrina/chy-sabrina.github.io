@@ -973,7 +973,7 @@ body.notes-locked .container {
   width: 32px;
   height: 32px;
   padding: 0;
-  color: var(--text);
+  color: #fff;
   background: rgba(15, 18, 23, 0.75);
   border: 1px solid var(--border);
   border-radius: 999px;
